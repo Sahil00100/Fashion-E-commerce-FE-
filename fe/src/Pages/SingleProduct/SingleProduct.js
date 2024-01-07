@@ -92,6 +92,8 @@ const SingleProduct = (props) => {
       rating={state.products[0].rating}
       reviews={state.products[0].reviews}
       data={state.products[0].data}
+      sizes={state.products[0].sizes}
+      
     />
   </div>
   );

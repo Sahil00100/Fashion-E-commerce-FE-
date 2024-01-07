@@ -5,6 +5,7 @@ import ProductAccordion from "./ProductAccordion";
 import ProductBadge from "../ProductList/productBadge";
 const ProductView = (props) => {
  console.log(props,"00000000000");
+ const sizeID = Date.now();
   return (
     <>
     <div className="card card-product card-plain">
@@ -32,6 +33,25 @@ const ProductView = (props) => {
               <span className="ms-2">100 reviews</span>
             </div>
           }
+          <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
+            <h6 className="mb-0">Size</h6>
+            <a href="#" className="text-body mb-0">Size guide</a>
+          </div>
+          <div className="d-flex flex-wrap text-center my-4">
+            {Object.entries(props.sizes).map(([size, amount], i) => 
+
+            <div className="mb-3 me-3">
+              <div className="form-check">
+                {(amount !== 0) ?
+                  <input className="form-check-input rounded-2" type="radio" name="flexRadioDefault" id={`input`+ sizeID + i} />
+                : 
+                  <input className="form-check-input rounded-2" disabled type="radio" name="flexRadioDefault" id={`input`+ sizeID + i} />
+                } 
+                <label className="cursor-pointer" htmlFor={`input`+ sizeID + i}>{size}</label>
+              </div>
+            </div>
+            )}
+          </div>
           
           {(props.colors?.length !== 0) && 
             <>
