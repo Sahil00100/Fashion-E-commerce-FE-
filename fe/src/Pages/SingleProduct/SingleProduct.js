@@ -79,7 +79,7 @@ const SingleProduct = (props) => {
   const classList = "card-body " + "text-" + props.position;
   console.log(state.products,"11111111111");
   return(
-    <div class="my-5">
+    <div class="my-5 mx-4 mx-lg-0">
     <h3>Product Overview</h3>
     <p class="mb-5">Product Overviews with image gallery and expandable details</p>
 
@@ -92,6 +92,8 @@ const SingleProduct = (props) => {
       rating={state.products[0].rating}
       reviews={state.products[0].reviews}
       data={state.products[0].data}
+      sizes={state.products[0].sizes}
+      
     />
   </div>
   );
