@@ -30,8 +30,9 @@ import Pic2 from '../../Images/Pic2.jpg';
 import Pic1 from '../../Images/Pic1.jpg';
 import HomeButton from './HomeButton';
 import './PromoSectionMainStyle.css'; // Import your CSS file
-
+import { useNavigate } from "react-router-dom";
 const PromoSectionMain = () => {
+  const navigate = useNavigate();
   return (
     <div className="image-container">
       <img className="d-block w-100" src={Pic3} alt="Second slide" />
