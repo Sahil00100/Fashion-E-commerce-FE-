@@ -43,7 +43,7 @@ const ProductView = (props) => {
             <div className="mb-3 me-3">
               <div className="form-check">
                 {(amount !== 0) ?
-                  <input className="form-check-input rounded-2" type="radio" name="flexRadioDefault" id={`input`+ sizeID + i} />
+                  <input className="form-check-input  rounded-2" type="radio" name="flexRadioDefault" id={`input`+ sizeID + i} />
                 : 
                   <input className="form-check-input rounded-2" disabled type="radio" name="flexRadioDefault" id={`input`+ sizeID + i} />
                 } 
