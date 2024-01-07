@@ -54,7 +54,11 @@ import Logo from "../Images/Fad slang Light.svg";
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from "react-router-dom";
+
 const MyNavbar = () => {
+  const navigate = useNavigate();
+
   return (
     <Navbar bg="light" expand="lg">
       {/* Update the following line with the correct path to your logo */}
@@ -77,9 +81,11 @@ const MyNavbar = () => {
       </Navbar.Toggle>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto" style={{ fontSize: '1rem',marginLeft:"50px" }}>
-          <Nav.Link style={{ fontSize: '1rem'}} href="#home">Home</Nav.Link>
-          <Nav.Link style={{ fontSize: '1rem' }} href="#about">About</Nav.Link>
-          <Nav.Link style={{ fontSize: '1rem' }} href="#contact">Contact</Nav.Link>
+          <Nav.Link style={{ fontSize: '1rem'}} onClick={()=>{navigate("/home")}}>Home</Nav.Link>
+          <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/about-us/")}}>About</Nav.Link>
+          <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/about-us/")}}>Contact</Nav.Link>
+          <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Cart</Nav.Link>
+          <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Orders</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

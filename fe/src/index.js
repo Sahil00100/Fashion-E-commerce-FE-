@@ -26,6 +26,7 @@ import Home from './Pages/Home/Home';
 import ProductList from './Pages/ProductList/ProductList';
 import ShoppingCart from './Pages/ShoppingCart/ShoppingCart';
 import SingleProduct from './Pages/SingleProduct/SingleProduct';
+import AboutUs from './Pages/About/AboutUs';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/product/" element={<ProductList />} />
         <Route path="/product/view/" element={<SingleProduct />} />
         <Route path="/cart/" element={<ShoppingCart />} />
+        <Route path="/about-us/" element={<AboutUs />} />
       </Routes>
     </BrowserRouter>
   );
