@@ -21,8 +21,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import ProductList from './Pages/ProductList/ProductList';
-import ProductView from './Pages/SingleProduct/ProductView';
 import ShoppingCart from './Pages/ShoppingCart/ShoppingCart';
+import SingleProduct from './Pages/SingleProduct/SingleProduct';
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/*" element={<Home />} />
         <Route path="/product/" element={<ProductList />} />
-        <Route path="/product/view/" element={<ProductView />} />
+        <Route path="/product/view/" element={<SingleProduct />} />
         <Route path="/cart/" element={<ShoppingCart />} />
       </Routes>
     </BrowserRouter>

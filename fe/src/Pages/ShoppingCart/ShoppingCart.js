@@ -196,7 +196,7 @@ const ShoppingCart = (props) => {
     ],
   })
   return (
-    <div class="my-10">
+    <div class="my-1">
     <Cart
       products = {state.products}
     />
