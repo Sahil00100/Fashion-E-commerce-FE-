@@ -1,0 +1,48 @@
+# Dependency directories
+node_modules/
+
+# Production build
+build/
+dist/
+out/
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# User-specific files
+*.iml
+*.log
+npm-debug.log*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Sensitive or high-churn files
+*.pem
+*.log
+*.lock
+
+# Yarn
+yarn-error.log
+
+# dotenv environment variables file
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
