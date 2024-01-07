@@ -17,6 +17,7 @@
     position: relative;
     text-decoration: none;
     transition: border-color 0.3s, color 0.3s;
+    cursor: pointer;
   }
   
   .your-button .label,

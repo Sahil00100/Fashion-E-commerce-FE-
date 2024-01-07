@@ -1,224 +1,319 @@
+import ProductCard from "./ProductCard";
+import Navbar from "../../Components/Navbar";
+import Footer from "../../Components/Footer";
+// import data from "./data.json";
 
-
-import { useState } from "react";
-import ProductCard from "./ProducCard";
+// import "./astro-ecommerce.js"
+import Pic4 from "../../Images/Pic4.jpg";
+import Pic3 from "../../Images/Pic3.jpg";
+import TextField from "@mui/material/TextField";
+import SearchIcon from "@mui/icons-material/Search";
 const ProductList = (props) => {
-  const [state,setState]=useState({
-    full_description:"The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out.",
-    products: [
-      {
-        "id": "01",
-        "thumb_src": "/images/suit-3.jpg",
-        "thumb_alt": "watch-image",
-        "images": [
-          {
-            "src": "https://images.unsplash.com/photo-1611930021592-a8cfd5319ceb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
-            "alt": "first_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-            "alt": "second_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1513116476489-7635e79feb27?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-            "alt": "third_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80",
-            "alt": "fourth_image"
-          }
-        ],
-        "color": "8 colors",
-        "colors": [
-          "red", 
-          "blue", 
-          "green"
-        ],
-        "title": "Basic Starter Pack",
-        "price": 399,
-        "description": "That’s the main thing people are controlled by! Thoughts- their perception of themselves!",
-        "full_description": "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out.",
-        "details": "There’s nothing I really wanted to do in life that I wasn’t able to get good at. That’s my skill. I’m not really specifically talented at anything except for the ability to learn.",
-        "highlights": [
-          "Oil is a primary source of energy for various sectors, including transportation, industries, and residential use.",
-          "Oil is highly versatile and used in the production of a wide range of products. It serves as a raw material for manufacturing plastics",
-          "Oil is a crucial source of petrochemicals, which are used in the production of plastics."
-        ],
-        "features": [
-          "Multiple strap configuration",
-          "Water Resistant",
-          "Stainless strap loops",
-          "Ultra-soft 100% cotton"
-        ],
-        "rating": 4,
-        "reviews": 117,
-        "size": "Small",
-        "sizes": {
-          "XS": 3,
-          "S": 0,
-          "M": 1,
-          "L": 1213,
-          "XL": 6
-        },
-        "data": {
-          "Features": "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you.",
-          "Care": "It really matters and then like it really doesn`t matter. What matters is the people who are sparked by it. And the people who are like offended by it, it doesn`t matter. Because it's about motivating the doers. Because I`m here to follow my dreams and inspire other people to follow their dreams, too.",
-          "Shipping": "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you. Would you believe in what you believe in, if you were the only one who believed it?",
-          "Returns": "I always felt like I could do anything. That`s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can`t do anything, you won`t do anything. I was taught I could do everything."
-        },
-        "featuresDetails": {
-          "Origin": "Oil is a primary source of energy for various sectors, including transportation, industries, and residential use.",
-          "Material": "Oil is highly versatile and used in the production of a wide range of products. It serves as a raw material for manufacturing plastics.",
-          "Dimensions": "Oil is a crucial source of petrochemicals, which are used in the production of plastics."
-        },
-        "stock": true
-      },
-      {
-        "id": "02",
-        "thumb_src": "/images/suit-1.jpg",
-        "thumb_alt": "watch-image",
-        "images": [
-          {
-            "src": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-            "alt": "first_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-            "alt": "second_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1508296695146-257a814070b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
-            "alt": "third_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1522125123931-9304d91a42ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-            "alt": "fourth_image"
-          }
-        ],
-        "color": "Black",
-        "colors": ["black", "green", "white"],
-        "title": "Pink Blouse",
-        "price": 1490,
-        "rating": 5,
-        "reviews": 117,
-        "description": "That’s the main thing people are controlled by! Thoughts- their perception of themselves!",
-        "full_description": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming `Charcoal Gray` limited release.",
-        "features": [
-          "Multiple strap configuration",
-          "Water Resistant",
-          "Stainless strap loops",
-          "Ultra-soft 100% cotton"
-        ],
-        "size": "Medium",
-        "sizes": {
-          "XS": 3,
-          "S": 0,
-          "M": 1,
-          "L": 0,
-          "XL": 6
-        },
-        "data": {
-          "Features": "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you.",
-          "Care": "It really matters and then like it really doesn`t matter. What matters is the people who are sparked by it. And the people who are like offended by it, it doesn`t matter. Because it's about motivating the doers. Because I`m here to follow my dreams and inspire other people to follow their dreams, too.",
-          "Shipping": "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you. Would you believe in what you believe in, if you were the only one who believed it?",
-          "Returns": "I always felt like I could do anything. That`s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can`t do anything, you won`t do anything. I was taught I could do everything."
-        },
-        "featuresDetails": {
-          "Origin": "Designed by Good Goods, Inc.",
-          "Material": "Solid walnut base with rare earth magnets and powder coated steel card cover",
-          "Dimensions": "6.25 x 3.55' x 1.15'",
-          "Finish": "Hand sanded and finished with natural oil",
-          "Includes": "Wood card tray and 3 refill packs",
-          "Considerations": "Made from natural materials. Grain and color vary with each item."
-        },
-        "stock": false
-      },
-      {
-        "id": "03",
-        "thumb_src": "/images/suit-2.jpg",
-        "thumb_alt": "iMac-image",
-        "images": [
-          {
-            "src": "https://images.unsplash.com/photo-1567790350645-dbc1486a89c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-            "alt": "first_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1593088177922-aa1c5055c7b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-            "alt": "second_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1635594202056-9ea3b497e5c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-            "alt": "third_image"
-          },
-          {
-            "src": "https://images.unsplash.com/photo-1593085260707-5377ba37f868?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-            "alt": "fourth_image"
-          }
-        ],
-        "color": "Yellow",
-        "colors": ["SpaceGray"],
-        "title": "Premium Suit",
-        "description": "There’s nothing I really wanted to do in life that I wasn’t able to get good at.",
-        "price": 1399,
-        "size": "Large",
-        "sizes": {
-          "XS": 3,
-          "S": 0,
-          "M": 1,
-          "L": 0,
-          "XL": 6
-        },
-        "data": {
-          "Design": "If everything I did failed - which it doesn't, it actually succeeds - just the fact that I'm willing to fail is an inspiration. People are so scared to lose that they don't even try. Like, one thing people can't say is that I'm not trying, and I'm not trying my hardest, and I'm not trying to do the best way I know how.",
-          "Material": "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you. Would you believe in what you believe in, if you were the only one who believed it? People are so scared to lose that they don't even try.",
-          "Considerations": "I always felt like I could do anything. That’s the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can’t do anything, you won’t do anything. I was taught I could do everything.",
-          "Included": "We’re not always in the position that we want to be at. We’re constantly growing. We’re constantly making mistakes. We’re constantly trying to express ourselves and actualize our dreams. If you have the opportunity to play this game of life you need to appreciate every moment. A lot of people don’t appreciate the moment until it’s passed."
-        },
-        "stock": true
-      },
-      {
-        "id": "04",
-        "thumb_src": "/images/suit-5.jpg",
-        "thumb_alt": "iPhone_thumb",
-        "color": "Blue",
-        "title": "iPhone",
-        "description": "That’s the main thing people are controlled by! Thoughts- their perception of themselves!",
-        "price": 1599,
-        "size": "Small",
-        "sizes": {
-          "XS": 3,
-          "S": 0,
-          "M": 1,
-          "L": 0,
-          "XL": 6
-        },
-        "stock": false
-      }
-    ],
-  })
-
-  return(
+  let title = "Our products";
+  let dataList = [
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic3,
+    },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+  ];
+  return (
     <>
-      <h3>Product Lists</h3>
-      <p>Cards with full details</p>
-      <div class="row">
-        {state.products.map(product => 
-          <div class="col-md-6 col-lg-3">
-            <ProductCard 
-              thumb_src = {product.thumb_src}
-              thumb_alt = {product.thumb_alt}
-              color = {product.color}
-              colors = {product.colors}
-              title = {product.title}
-              description = {product.description}
-              price = {product.price}
-              position = "left"
+      <Navbar />
+      <div className="container card card-product card-plain mt-5 mb-5">
+        <div className="d-flex border-bottom pb-3">
+          {title.length != 0 && <h2 className="mb-3">{title}</h2>}
+
+          <div className="d-flex ms-auto align-items-center">
+            <TextField
+              InputProps={{
+                endAdornment: <SearchIcon style={{ color: "grey" }} />,
+                classes: {
+                  root: "custom-input-root",
+                },
+                style: { height: "30px", width: "200px" },
+              }}
             />
+
+            <div className="dropdown">
+              <button
+                className="btn btn-link text-dark mb-0 dropdown-toggle"
+                type="button"
+                id="sortButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Sort
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="sortButton">
+                <li>
+                  <a className="dropdown-item" href="javascript:;">
+                    Most Popular
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="javascript:;">
+                    Best Rating
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="javascript:;">
+                    Newest
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="javascript:;">
+                    Price: Low to High
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="javascript:;">
+                    Price: High to Low
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-        )}        
+        </div>
+        <div className="row mt-5">
+          <div className="col-12 col-md-4">
+            <div className="accordion" id="accordionArrivals">
+              <div className="accordion-item">
+                <h5 className="accordion-header" id="headingFour">
+                  <button
+                    className="accordion-button border-bottom font-weight-bold py-4"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour"
+                  >
+                    Category
+                    <i
+                      className="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0 me-3"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      className="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0 me-3"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </h5>
+                <div
+                  id="collapseFour"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingFour"
+                  data-bs-parent="#accordionArrivals"
+                >
+                  <div className="accordion-body text-sm opacity-8">
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customCheck8"
+                      />
+                      <label htmlFor="customCheck1">Cotton</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customCheck8"
+                      />
+                      <label className="custom-control-label mb-0">
+                        Leather
+                      </label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customCheck9"
+                        checked
+                      />
+                      <label className="custom-control-label mb-0">
+                        Chiffon
+                      </label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customCheck10"
+                      />
+                      <label className="custom-control-label mb-0">Crepe</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customCheck11"
+                      />
+                      <label className="custom-control-label mb-0">Denim</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="accordion-item">
+                <h5 className="accordion-header" id="headingFifth">
+                  <button
+                    className="accordion-button border-bottom font-weight-bold py-4"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseFifth"
+                    aria-expanded="false"
+                    aria-controls="collapseFifth"
+                  >
+                    Size
+                    <i
+                      className="collapse-close fa fa-plus text-xs pt-1 position-absolute end-0 me-3"
+                      aria-hidden="true"
+                    ></i>
+                    <i
+                      className="collapse-open fa fa-minus text-xs pt-1 position-absolute end-0 me-3"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </h5>
+                <div
+                  id="collapseFifth"
+                  className="accordion-collapse collapse"
+                  aria-labelledby="headingFifth"
+                  data-bs-parent="#accordionArrivals"
+                >
+                  <div className="accordion-body text-sm opacity-8">
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize1"
+                      />
+                      <label className="custom-control-label mb-0">XXS</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize2"
+                      />
+                      <label className="custom-control-label mb-0">XS</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize3"
+                      />
+                      <label className="custom-control-label mb-0">S</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize4"
+                      />
+                      <label className="custom-control-label mb-0">M</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize5"
+                      />
+                      <label className="custom-control-label mb-0">L</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize6"
+                      />
+                      <label className="custom-control-label mb-0">XL</label>
+                    </div>
+                    <div className="form-check justify-content-start ">
+                      <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="customSize7"
+                      />
+                      <label className="custom-control-label mb-0">XXL</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-8">
+            <div className="d-flex h-100">
+              <div className="row">
+                {dataList.map((product) => (
+                  <div class=" col-md-4 col-lg-4">
+                    <ProductCard
+                      position="center"
+                      dataList={dataList}
+                      product={product}
+                      // product={product}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <Footer />
     </>
   );
 };
 
-  export default ProductList;
+export default ProductList;
