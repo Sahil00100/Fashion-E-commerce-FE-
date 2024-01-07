@@ -50,7 +50,7 @@
 // };
 
 // export default Navbar;
-import Logo from "../../Images/Fad slang Light.svg";
+import Logo from "../Images/Fad slang Light.svg";
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import MenuIcon from '@mui/icons-material/Menu';
