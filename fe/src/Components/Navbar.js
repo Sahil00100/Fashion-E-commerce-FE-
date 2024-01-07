@@ -60,7 +60,11 @@ const MyNavbar = () => {
   const navigate = useNavigate();
 
   return (
-    <Navbar bg="light" expand="lg">
+
+
+    <div style={{position:"sticky",top:"0",overflow:"hidden",zIndex:'100'}}>
+
+    <Navbar  bg="light" expand="lg">
       {/* Update the following line with the correct path to your logo */}
       <Navbar.Brand href="#home" className="d-flex align-items-center">
         <div className="ml-auto">
@@ -89,6 +93,7 @@ const MyNavbar = () => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
+    </div>
   );
 };
 

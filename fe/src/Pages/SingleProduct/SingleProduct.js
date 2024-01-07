@@ -85,7 +85,7 @@ const SingleProduct = (props) => {
     <>
     <Navbar />
     <div class="container mt-5">
-    <h3>Product Overview</h3>
+    {/* <h3>Product Overview</h3> */}
     
     <ProductView 
       colors={state.products[0].colors} 

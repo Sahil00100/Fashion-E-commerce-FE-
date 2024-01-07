@@ -4,14 +4,15 @@ import ProductRating from "./ProductRating";
 import ProductAccordion from "./ProductAccordion";
 import ProductBadge from "../ProductList/productBadge";
 const ProductView = (props) => {
- console.log(props,"00000000000");
  const sizeID = Date.now();
   return (
     <>
-    <div className="card card-product card-plain">
-      <div className="row">
+    <div className="card card-product card-plain ">
+      <div className="row d-flex justify-content-between">
         {(props.images?.length !== 0) && 
+        <div className="col-12 col-lg-6 mt-5 mt-lg-0">
           <ProductImage images={props.images}/>
+          </div>
         }
         <div className="col-12 col-lg-6 mt-5 mt-lg-0">
           {(props.title?.length !== 0) && 
@@ -27,15 +28,10 @@ const ProductView = (props) => {
           }
           <p className="mt-4">{props.full_description}</p>
 
-          {(props.rating !== 0) && 
-            <div className="d-flex align-items-center">
-              <ProductRating rating={props.rating} reviews={props.reviews} />
-              <span className="ms-2">100 reviews</span>
-            </div>
-          }
+ 
           <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
             <h6 className="mb-0">Size</h6>
-            <a href="#" className="text-body mb-0">Size guide</a>
+           
           </div>
           <div className="d-flex flex-wrap text-center my-4">
             {Object.entries(props.sizes).map(([size, amount], i) => 

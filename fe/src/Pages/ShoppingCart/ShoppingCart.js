@@ -80,7 +80,7 @@ const ShoppingCart = (props) => {
   return (
   <>
     <Navbar/>
-    <div class="my-1">
+    <div class="my-1 mt-5">
     <Cart products = {state.products}/>
     </div>
     <Footer />
