@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import ProductView from "./ProductView";
+import Navbar from "../../Components/Navbar";
+import Footer from "../../Components/Footer";
 const SingleProduct = (props) => {
   const [state,setState]=useState({
     full_description:"The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out.",
@@ -79,10 +81,12 @@ const SingleProduct = (props) => {
   const classList = "card-body " + "text-" + props.position;
   console.log(state.products,"11111111111");
   return(
-    <div class="my-5 mx-4 mx-lg-0">
-    <h3>Product Overview</h3>
-    <p class="mb-5">Product Overviews with image gallery and expandable details</p>
 
+    <>
+    <Navbar />
+    <div class="container mt-5">
+    <h3>Product Overview</h3>
+    
     <ProductView 
       colors={state.products[0].colors} 
       images={state.products[0].images}
@@ -96,6 +100,10 @@ const SingleProduct = (props) => {
       
     />
   </div>
+  <Footer />
+    </>
+
+
   );
 };
 
