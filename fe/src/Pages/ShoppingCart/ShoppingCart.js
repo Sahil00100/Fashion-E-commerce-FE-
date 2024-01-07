@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Cart from "./Cart";
+import Navbar from "../../Components/Navbar";
+import Footer from "../../Components/Footer";
 
 const ShoppingCart = (props) => {
   const [state,setState]=useState({
@@ -76,11 +78,13 @@ const ShoppingCart = (props) => {
     ],
   })
   return (
+  <>
+    <Navbar/>
     <div class="my-1">
-    <Cart
-      products = {state.products}
-    />
-  </div>
+    <Cart products = {state.products}/>
+    </div>
+    <Footer />
+    </>
   );
 };
 

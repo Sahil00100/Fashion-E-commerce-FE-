@@ -58,8 +58,8 @@ const ProductList = (props) => {
     <>
       <Navbar />
       <div className="container card card-product card-plain mt-5 mb-5">
-        <div className="d-flex border-bottom pb-3">
-          {title.length != 0 && <h2 className="mb-3">{title}</h2>}
+        <div className="d-block d-sm-flex border-bottom pb-3">
+          {title.length !== 0 && <h2 className="mb-3">{title}</h2>}
 
           <div className="d-flex ms-auto align-items-center">
             <TextField
@@ -74,7 +74,7 @@ const ProductList = (props) => {
 
             <div className="dropdown">
               <button
-                className="btn btn-link text-dark mb-0 dropdown-toggle"
+                className="btn btn-link text-dark mb-0 dropdown-toggle p-2 p-sm-3"
                 type="button"
                 id="sortButton"
                 data-bs-toggle="dropdown"
@@ -296,7 +296,7 @@ const ProductList = (props) => {
             <div className="d-flex h-100">
               <div className="row">
                 {dataList.map((product) => (
-                  <div class=" col-md-4 col-lg-4">
+                  <div class=" col-md-6 col-lg-4">
                     <ProductCard
                       position="center"
                       dataList={dataList}
