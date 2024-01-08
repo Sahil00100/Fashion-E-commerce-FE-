@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BASE_URL from "../../settings";
+import {BASE_URL} from "../../settings";
 const ProductCategoryCard = (props) => {
   const classBody = ((props?.cta != null) ? "align-items-end d-flex" : "text-center w-100 pt-8" );
 

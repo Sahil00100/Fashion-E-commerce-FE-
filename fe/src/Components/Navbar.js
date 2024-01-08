@@ -89,7 +89,7 @@ const MyNavbar = () => {
           <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/about-us/")}}>About</Nav.Link>
           <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/about-us/")}}>Contact</Nav.Link>
           <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Cart</Nav.Link>
-          <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Orders</Nav.Link>
+          {/* <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Orders</Nav.Link> */}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -1,6 +1,8 @@
 import ProductCard from "./ProductCard";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
+import { useState, useEffect } from "react";
+
 // import data from "./data.json";
 
 // import "./astro-ecommerce.js"
@@ -8,6 +10,9 @@ import Pic4 from "../../Images/Pic4.jpg";
 import Pic3 from "../../Images/Pic3.jpg";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
+
+import { ProductsListApi } from "./ProductListApis";
+
 const ProductList = (props) => {
   let title = "Our products";
   let dataList = [
@@ -23,13 +28,6 @@ const ProductList = (props) => {
       Category: "Suits",
       Price: "500",
       ColourList: ["white", "red", "pink"],
-      Photo: Pic3,
-    },
-    {
-      ProductName: "Premium Suit",
-      Category: "Suits",
-      Price: "500",
-      ColourList: ["white", "red", "pink"],
       Photo: Pic4,
     },
     {
@@ -53,7 +51,46 @@ const ProductList = (props) => {
       ColourList: ["white", "red", "pink"],
       Photo: Pic4,
     },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+    {
+      ProductName: "Premium Suit",
+      Category: "Suits",
+      Price: "500",
+      ColourList: ["white", "red", "pink"],
+      Photo: Pic4,
+    },
+
   ];
+
+
+  const [state,setState] = useState({
+    ProductList:[]
+  })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const productsResponse = await ProductsListApi.get();
+        console.log(productsResponse.data,'------------');
+        let ProductList = productsResponse.data.data
+        setState((prev)=>{
+          return ({...prev,ProductList})
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+  console.log(state,"stt");
   return (
     <>
       <Navbar />
@@ -293,9 +330,9 @@ const ProductList = (props) => {
             </div>
           </div>
           <div className="col-12 col-md-8">
-            <div className="d-flex h-100">
+            {/* <div className="d-flex h-100"> */}
               <div className="row">
-                {dataList.map((product) => (
+                {state.ProductList.map((product) => (
                   <div class=" col-md-6 col-lg-4">
                     <ProductCard
                       position="center"
@@ -306,7 +343,7 @@ const ProductList = (props) => {
                   </div>
                 ))}
               </div>
-            </div>
+            {/* </div> */}
           </div>
         </div>
       </div>

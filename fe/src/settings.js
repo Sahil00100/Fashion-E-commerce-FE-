@@ -1,3 +1,3 @@
-const BASE_URL = "http://localhost:3000";
 
-export default BASE_URL;
+export const BASE_URL = "http://localhost:3000";
+export const BASE_BACKEND_URL = "http://127.0.0.1:8000/";
