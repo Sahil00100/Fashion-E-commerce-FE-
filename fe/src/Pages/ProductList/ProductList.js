@@ -11,7 +11,7 @@ import Pic3 from "../../Images/Pic3.jpg";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 
-import { ProductsListApi } from "./ProductListApis";
+import { ProductsListApi, fetchCategories } from "./ProductListApis";
 
 const ProductList = (props) => {
   let title = "Our products";
@@ -70,24 +70,84 @@ const ProductList = (props) => {
 
 
   const [state,setState] = useState({
-    ProductList:[]
+    search:"",
+    ProductList:[],
+    CategoriesList:[]
   })
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const productsResponse = await ProductsListApi.get();
+  //       console.log(productsResponse.data,'------------');
+  //       let ProductList = productsResponse.data.data
+  //       setState((prev)=>{
+  //         return ({...prev,ProductList})
+  //       })
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+  const handleChange = (e) => {
+    setState((prev) => ({
+      ...prev,
+      search: e.target.value,
+    }));
+  };
+  const handleCheck = (e,index) => {
+    let CategoriesList = state.CategoriesList
+    CategoriesList[index].is_true = e.target.checked
+
+    setState((prev) => ({
+      ...prev,
+      CategoriesList,
+    }));
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productsResponse = await ProductsListApi.get();
-        console.log(productsResponse.data,'------------');
-        let ProductList = productsResponse.data.data
-        setState((prev)=>{
-          return ({...prev,ProductList})
-        })
+        // const { search, filter } = state;
+
+        // Use the state properties for search and filter
+        const productsResponse = await ProductsListApi.get(`?searchTerm=${state.search}&category=${state.filter}`);
+        // console.log(productsResponse, '------------');
+
+        let ProductList = productsResponse.data.data;
+        // console.log(productsResponse,"qwertytfghjhgfdfghjhgfd");
+
+        setState((prev) => {
+          return { ...prev, ProductList };
+        });
       } catch (error) {
         console.log(error);
       }
     };
+
     fetchData();
-  }, []);
+  }, [state.search, state.filter]);  // Include search and filter in the dependency array
+  useEffect(() => {
+    const fetchDataCatogory = async () => {
+      try {
+        const categories = await fetchCategories();
+        console.log(categories, '------------');
+        let categories_list = categories.map(element => ({
+          ...element,
+          is_true: false
+        }));
+        console.log(categories_list);
+        setState((prev) => {
+          return { ...prev, CategoriesList:categories_list };
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDataCatogory();
+  }, []);  // Include search and filter in the dependency array
+
 
 
   console.log(state,"stt");
@@ -100,6 +160,7 @@ const ProductList = (props) => {
 
           <div className="d-flex ms-auto align-items-center">
             <TextField
+            onChange={(e)=> handleChange(e)}
               InputProps={{
                 endAdornment: <SearchIcon style={{ color: "grey" }} />,
                 classes: {
@@ -180,16 +241,20 @@ const ProductList = (props) => {
                   data-bs-parent="#accordionArrivals"
                 >
                   <div className="accordion-body text-sm opacity-8">
+                    {state.CategoriesList.map((i,index)=>(
+
                     <div className="form-check justify-content-start ">
                       <input
                         className="form-check-input me-2"
                         type="checkbox"
-                        value=""
+                        value={i.is_true}
                         id="customCheck8"
+                        onClick={(e)=>handleCheck(e,index)}
                       />
-                      <label htmlFor="customCheck1">Cotton</label>
+                      <label htmlFor="customCheck1">{i.name}</label>
                     </div>
-                    <div className="form-check justify-content-start ">
+                    ))}
+                    {/* <div className="form-check justify-content-start ">
                       <input
                         className="form-check-input me-2"
                         type="checkbox"
@@ -229,7 +294,7 @@ const ProductList = (props) => {
                         id="customCheck11"
                       />
                       <label className="custom-control-label mb-0">Denim</label>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
