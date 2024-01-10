@@ -1,40 +1,53 @@
-
 import ProductImage from "./ProductImage";
 import ProductRating from "./ProductRating";
 import ProductAccordion from "./ProductAccordion";
 import ProductBadge from "../ProductList/productBadge";
+import SizeSelector from "./SizeSelector";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const ProductView = (props) => {
- const sizeID = Date.now();
+  const { state } = props;
+  const navigate = useNavigate();
+
+  const [IsCart, setIsCart] = useState(false);
+  const onClickCart = () => {
+    setIsCart(true)
+    const existingCartList = JSON.parse(localStorage.getItem("CartList")) || [];
+    const updatedCartList = [...existingCartList, state];
+    localStorage.setItem("CartList", JSON.stringify(updatedCartList));
+    
+  };
+
+  const sizeID = Date.now();
   return (
     <>
-    <div className="card card-product card-plain ">
-      <div className="row d-flex justify-content-between">
-        {(props.images?.length !== 0) && 
-        <div className="col-12 col-lg-6 mt-5 mt-lg-0">
-          <ProductImage images={props.images}/>
-          </div>
-        }
-        <div className="col-12 col-lg-6 mt-5 mt-lg-0">
-          {(props.title?.length !== 0) && 
-            <h2>{props.title}</h2>
-          }
-          {(props.price?.length !== 0) && 
-            <>
-              <div className="d-flex mb-3">
-                <h4 className="font-weight-normal">${props.price?props.price?.toLocaleString():0}</h4>
-                <input className="opacity-0" defaultValue={props.price} />
-              </div>
-            </>
-          }
-          <p className="mt-4">{props.full_description}</p>
+      <div className="card card-product card-plain ">
+        <div className="row d-flex justify-content-between">
+          {state.images?.length !== 0 && (
+            <div className="col-12 col-lg-6 mt-5 mt-lg-0">
+              <ProductImage images={state.images} />
+            </div>
+          )}
+          <div className="col-12 col-lg-6 mt-5 mt-lg-0">
+            {state.name?.length !== 0 && <h2>{state.name}</h2>}
+            {state.price?.length !== 0 && (
+              <>
+                <div className="d-flex mb-3">
+                  <h4 className="font-weight-normal">
+                    ${state.price ? state.price?.toLocaleString() : 0}
+                  </h4>
+                  <input className="opacity-0" defaultValue={state.price} />
+                </div>
+              </>
+            )}
+            <p className="mt-4">{state.description}</p>
 
- 
-          <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
-            <h6 className="mb-0">Size</h6>
-           
-          </div>
-          <div className="d-flex flex-wrap text-center my-4">
-            {Object.entries(props.sizes).map(([size, amount], i) => 
+            <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
+              <h6 className="mb-0">Size</h6>
+            </div>
+            <div className="d-flex flex-wrap text-center my-4">
+              {/* {Object.entries(state.sub_variants).map(([size, amount], i) => 
 
             <div className="mb-3 me-3">
               <div className="form-check">
@@ -46,30 +59,50 @@ const ProductView = (props) => {
                 <label className="cursor-pointer" htmlFor={`input`+ sizeID + i}>{size}</label>
               </div>
             </div>
+            )} */}
+
+              <SizeSelector sizes={state.sub_variants} />
+            </div>
+
+            {state.variants?.length !== 0 && (
+              <>
+                <h6 className="mt-4">Color:</h6>
+                {state.variants && <ProductBadge colors={state.variants} />}
+              </>
             )}
+
+            <div className="d-flex align-items-center mt-4">
+              {IsCart ? (
+                <>
+                  <button
+                    className="btn btn-dark btn-lg mb-0 me-4"
+                    onClick={() => {
+                      navigate("/cart");
+                    }}
+                  >
+                    Go To Cart
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="btn btn-dark btn-lg mb-0 me-4"
+                  onClick={() => {
+                    onClickCart();
+                  }}
+                >
+                  Add to Cart
+                </button>
+              )}
+              <a href="#favorite">
+                <i id="heart1" className="far fa-heart text-2xl"></i>
+              </a>
+            </div>
+            {/* <ProductAccordion data={props.data} /> */}
           </div>
-          
-          {(props.colors?.length !== 0) && 
-            <>
-              <h6 className="mt-4">Color:</h6>
-              {(props.colors) &&
-                <ProductBadge colors={props.colors} />
-              }
-            </>
-          }
-          
-          <div className="d-flex align-items-center mt-4">
-            <button className="btn btn-dark btn-lg mb-0 me-4">Add to Cart</button>
-            <a href="#favorite">
-              <i id="heart1" className="far fa-heart text-2xl" ></i>
-            </a>
-          </div>
-            <ProductAccordion data={props.data} />
         </div>
       </div>
-    </div>
     </>
   );
 };
 
-  export default ProductView;
+export default ProductView;

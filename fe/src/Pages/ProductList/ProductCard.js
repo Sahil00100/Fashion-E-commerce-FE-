@@ -22,7 +22,7 @@ const ProductCard = (props) => {
  <div className="product-card">
       <div className="product-image" style={{ backgroundImage: `url(${image})` }}></div>
       <div className="product-details">
-        <div className="product-title" style={{cursor:"pointer"}} onClick={()=>{navigate("/product/view")}}>{product.name}</div>
+        <div className="product-title" style={{cursor:"pointer"}} onClick={()=>{navigate("/product/view/",{state:{unq_id:product.id}})}}>{product.name}</div>
         {/* <ProductBadge colors={product.ColourList} /> */}
         <div className="product-price">₹{product.price}</div>
         {/* <button className="cta-button">Add to Cart</button> */}

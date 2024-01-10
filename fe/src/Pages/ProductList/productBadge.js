@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function badge(color) {
-  const badgeClass = "badge filter rounded-4 bg-" + color;
-  const badge = React.createElement("span", { className: badgeClass });
-  
-  return badge;
+function Badge({ color, isSelected, onClick }) {
+  const badgeStyle = {
+    display: 'inline-block',
+    padding: '15px 20px', // Increase the size as needed
+    borderRadius: '8px', // Set the border-radius for rounded corners
+    backgroundColor: color.name.toLowerCase(),
+    color: 'white',
+    border: isSelected ? color.name.toLowerCase()==="black"?'2px solid grey':'2px solid black' : 'grey solid 1px',
+    cursor: 'pointer',
+    marginRight:'10px'
+  };
+
+  return <div  style={badgeStyle} onClick={() => onClick(color)}></div>;
 }
 
 function ProductBadge(props) {
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  const handleBadgeClick = (color) => {
+    setSelectedColor(color);
+  };
+
   const colors = props.colors;
 
   return (
-    React.createElement(React.Fragment, null,
-      React.createElement("div", null, colors.map(color => badge(color)))
-    )
+    <div>
+      {colors.map((color, index) => (
+        <Badge
+          key={index}
+          color={color}
+          isSelected={selectedColor === color}
+          onClick={handleBadgeClick}
+        />
+      ))}
+    </div>
   );
 }
 
