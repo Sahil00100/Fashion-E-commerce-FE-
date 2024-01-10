@@ -7,10 +7,14 @@ import Stack from '@mui/material/Stack';
 import Pic4 from "../../Images/Pic4.jpg";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
+import { useLocation } from "react-router-dom";
 
 import { ProductsListApi, fetchCategories } from "./ProductListApis";
 
 const ProductList = (props) => {
+  let location = useLocation();
+  const CategoryID = location.state.CategoryID;
+  console.log(CategoryID,"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
   let title = "Our products";
   let dataList = [
     {
@@ -70,7 +74,7 @@ const ProductList = (props) => {
     count:1,
     search:"",
     ProductList:[],
-    CategoriesList:[],
+    CategoriesList:CategoryID?[{id:CategoryID,is_true:true}]:[],
     SubVariantList:[],
     Sort:[
       // {name:'Most Popular',is_true:false},
@@ -83,21 +87,39 @@ const ProductList = (props) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const productsResponse = await ProductsListApi.get();
-  //       console.log(productsResponse.data,'------------');
-  //       let ProductList = productsResponse.data.data
-  //       setState((prev)=>{
-  //         return ({...prev,ProductList})
-  //       })
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchDataCatogory = async () => {
+      try {
+        const { categorydata: categories, subvariantsdata: subvariants } = await fetchCategories();
+  
+        let categories_list = categories.map(element => ({
+          ...element,
+          is_true: false
+        }));
+        console.log("kkkk1111");
+        if (CategoryID) {
+          categories_list = categories_list.map(item => 
+            item.id === CategoryID ? { ...item, is_true: true } : item
+            );
+            console.log("kkkk");
+        }
+        let subvariants_list = subvariants.map(element => ({
+          ...element,
+          is_true: false
+        }));
+  
+        console.log(categories_list);
+        setState((prev) => {
+          return { ...prev, CategoriesList: categories_list, SubVariantList: subvariants_list };
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    fetchDataCatogory();
+  }, []); 
+ 
   const handleChange = (e) => {
     setState((prev) => ({
       ...prev,
@@ -159,32 +181,7 @@ const ProductList = (props) => {
       fetchData(page);
     }
   }, [state.search, page]); // Include search and filter in the dependency array
-  useEffect(() => {
-    const fetchDataCatogory = async () => {
-      try {
-        const { categorydata: categories, subvariantsdata: subvariants } = await fetchCategories();
-  
-        let categories_list = categories.map(element => ({
-          ...element,
-          is_true: false
-        }));
-  
-        let subvariants_list = subvariants.map(element => ({
-          ...element,
-          is_true: false
-        }));
-  
-        console.log(categories_list);
-        setState((prev) => {
-          return { ...prev, CategoriesList: categories_list, SubVariantList: subvariants_list };
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    fetchDataCatogory();
-  }, []); 
+
 
 
   console.log(state,"stt");
@@ -221,10 +218,10 @@ const ProductList = (props) => {
               <ul className="dropdown-menu" aria-labelledby="sortButton">
                 {state.Sort.map((i,index)=>(
                 <li>
-                  <a className="dropdown-item" href="javascript:;" onClick={(e)=>handleReorder(e,i)}>
+                  <p className="dropdown-item"  onClick={(e)=>handleReorder(e,i)}>
                     {i.name}
                     
-                  </a>
+                  </p>
                 </li>
                 ))}
                 {/* <li>
@@ -288,7 +285,7 @@ const ProductList = (props) => {
                       <input
                         className="form-check-input me-2"
                         type="checkbox"
-                        value={i.is_true}
+                        checked={i.is_true}
                         id="customCheck8"
                         onClick={(e)=>handleCheck(e,index,'CategoriesList')}
                       />
@@ -372,7 +369,7 @@ const ProductList = (props) => {
                       <input
                         className="form-check-input me-2"
                         type="checkbox"
-                        value={i.is_true}
+                        checked={i.is_true}
                         onClick={(e)=>handleCheck(e,index,'SubVariantList')}
                         id="customSize1"
                       />
@@ -442,7 +439,7 @@ const ProductList = (props) => {
             {/* <div className="d-flex h-100"> */}
               <div className="row" style={{height:"90%"}}>
                 {state.ProductList.map((product) => (
-                  <div class=" col-md-6 col-lg-4">
+                  <div className=" col-md-6 col-lg-4">
                     <ProductCard
                       position="center"
                       dataList={dataList}
