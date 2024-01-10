@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import {BASE_BACKEND_URL} from "../../settings"
 
@@ -21,11 +20,26 @@ export const fetchProducts = async (searchTerm, category) => {
 export const CategoriesApi = axios.create({
   baseURL: BASE_BACKEND_URL + 'api/products/categories/', 
 });
-
+export const CategoriesHomeApi = axios.create({
+  baseURL: BASE_BACKEND_URL + 'api/products/categories-home/', 
+});
 export const fetchCategories = async () => {
   try {
     const response = await CategoriesApi.get('');
-    return response.data.data; 
+    return {
+      categorydata: response.data.categorydata,
+      subvariantsdata: response.data.subvariantsdata
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+export const fetchCategoriesHome = async () => {
+  try {
+    const response = await CategoriesHomeApi.get('');
+    return {
+      categorydata: response.data.data,
+    };
   } catch (error) {
     throw error;
   }

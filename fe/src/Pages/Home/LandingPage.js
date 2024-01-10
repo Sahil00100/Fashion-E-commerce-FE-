@@ -8,6 +8,8 @@ import Pic3 from "../../Images/Pic3.jpg";
 import Pic2 from "../../Images/Pic2.jpg";
 import Pic1 from "../../Images/Pic1.jpg";
 import Footer from "../../Components/Footer"
+import { useEffect } from "react";
+import { ProductsListApi, fetchCategoriesHome } from "../ProductList/ProductListApis";
 const LandingPage = () => {
   const [state, setState] = useState({
     full_description:
@@ -35,7 +37,21 @@ const LandingPage = () => {
       },
     ],
   });
-
+  const fetchDataCategory = async () => {
+    try {
+      const { categorydata: categories } = await fetchCategoriesHome();
+      console.log(categories);
+      setState((prev) => {
+        return { ...prev, categories: categories };
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // 
+  useEffect(() => {
+    fetchDataCategory();
+  }, []);
   return (
     // <Layout title="Landing Page">
     <main>
@@ -55,9 +71,9 @@ const LandingPage = () => {
           {state.categories.slice(0, 4).map((category) => (
             <div className="col-md-6 col-lg-3">
               <ProductCategoryCard
-                thumb_src={category.thumb_src}
-                collection={category.collection}
-                title={category.title}
+                thumb_src={category.images}
+                collection={category.description}
+                title={category.name}
               />
             </div>
           ))}
