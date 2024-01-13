@@ -3,22 +3,75 @@ import ProductRating from "./ProductRating";
 import ProductAccordion from "./ProductAccordion";
 import ProductBadge from "../ProductList/productBadge";
 import SizeSelector from "./SizeSelector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProductView = (props) => {
-  const { state } = props;
+  const { state, SelectedProduct, setSelectedProduct } = props;
   const navigate = useNavigate();
 
-  const [IsCart, setIsCart] = useState(false);
-  const onClickCart = () => {
-    setIsCart(true)
-    const existingCartList = JSON.parse(localStorage.getItem("CartList")) || [];
-    const updatedCartList = [...existingCartList, state];
-    localStorage.setItem("CartList", JSON.stringify(updatedCartList));
-    
-  };
+  // const [SelectedProduct , setSelectedProduct] = useState({
+  //   id:state?.id,
+  //   name:state?.name,
+  //   price:state?.price,
+  //   product_code:state?.product_code,
+  //   size:null,
+  //   color:null
+  // })
 
+  // useEffect(() => {
+  // console.log(state,"state");
+  // setSelectedProduct({
+  //   ...SelectedProduct,
+  //   id:state?.id,
+  //   name:state?.name,
+  //   price:state?.price,
+  //   product_code:state?.product_code,
+  // })
+  // }, []);
+
+  const [IsCart, setIsCart] = useState(false);
+  const [Error, SetError] = useState({
+    name: null,
+    ErrorMessage: null,
+  });
+  const validation = () => {
+    let name = null;
+    let ErrorMessage = null;
+    let IsError = false;
+    if (!SelectedProduct.size && !IsError) {
+      IsError = true;
+      ErrorMessage = "Please Select A Size";
+      name = "size";
+    } else if (!SelectedProduct.color && !IsError) {
+      IsError = true;
+      ErrorMessage = "Please Select A Color";
+      name = "color";
+    }
+
+    if (IsError) {
+      SetError({
+        name,
+        ErrorMessage,
+      });
+    }
+
+    return IsError;
+  };
+  const onClickCart = async () => {
+    let IsError = await validation()
+    if (IsError===false){
+      SetError({
+        name:null,
+        ErrorMessage:null,
+      });
+      setIsCart(true);
+      const existingCartList = JSON.parse(localStorage.getItem("CartList")) || [];
+      const updatedCartList = [...existingCartList, SelectedProduct];
+      localStorage.setItem("CartList", JSON.stringify(updatedCartList));
+    }
+  };
+  console.log(SelectedProduct, "SelectedProduct",Error);
   const sizeID = Date.now();
   return (
     <>
@@ -46,6 +99,7 @@ const ProductView = (props) => {
             <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
               <h6 className="mb-0">Size</h6>
             </div>
+              <p style={{color:"red"}}>{Error.name==="size"?Error.ErrorMessage:null}</p>
             <div className="d-flex flex-wrap text-center my-4">
               {/* {Object.entries(state.sub_variants).map(([size, amount], i) => 
 
@@ -61,13 +115,25 @@ const ProductView = (props) => {
             </div>
             )} */}
 
-              <SizeSelector sizes={state.sub_variants} />
+              <SizeSelector
+                sizes={state.sub_variants}
+                SelectedProduct={SelectedProduct}
+                setSelectedProduct={setSelectedProduct}
+              />
             </div>
 
             {state.variants?.length !== 0 && (
               <>
                 <h6 className="mt-4">Color:</h6>
-                {state.variants && <ProductBadge colors={state.variants} />}
+              <p style={{color:"red"}}>{Error.name==="color"?Error.ErrorMessage:null}</p>
+
+                {state.variants && (
+                  <ProductBadge
+                    colors={state.variants}
+                    SelectedProduct={SelectedProduct}
+                    setSelectedProduct={setSelectedProduct}
+                  />
+                )}
               </>
             )}
 

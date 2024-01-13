@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function SizeTag({ size, isSelected, onClick }) {
+function SizeTag({ size,id, isSelected, onClick,setSelectedProduct,SelectedProduct }) {
   const sizeTagStyle = {
     display: 'inline-block',
     padding: '15px 20px', // Increase the size as needed
@@ -16,7 +16,9 @@ function SizeTag({ size, isSelected, onClick }) {
   };
 
   return (
-    <div style={sizeTagStyle} onClick={() => onClick(size)}>
+    <div style={sizeTagStyle} onClick={() => {
+      setSelectedProduct({...SelectedProduct,size:{id:id,size:size}})
+      onClick(size)}}>
       {size}
     </div>
   );
@@ -29,7 +31,7 @@ function SizeSelector(props) {
     setSelectedSize(size);
   };
 
-  const {sizes} = props
+  const {sizes,SelectedProduct,setSelectedProduct} = props
 
   return (
     <div>
@@ -37,8 +39,11 @@ function SizeSelector(props) {
         <SizeTag
           key={index}
           size={size.name}
+          id={size.id}
           isSelected={selectedSize === size.name}
           onClick={handleSizeClick}
+          setSelectedProduct={setSelectedProduct}
+          SelectedProduct={SelectedProduct}
         />
       ))}
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Badge({ color, isSelected, onClick }) {
+function Badge({ color, isSelected, onClick,SelectedProduct,setSelectedProduct }) {
   const badgeStyle = {
     display: 'inline-block',
     padding: '15px 20px', // Increase the size as needed
@@ -19,9 +19,12 @@ function ProductBadge(props) {
   const [selectedColor, setSelectedColor] = useState(null);
 
   const handleBadgeClick = (color) => {
+    setSelectedProduct({...SelectedProduct,color:color})
+
     setSelectedColor(color);
   };
 
+  const {SelectedProduct,setSelectedProduct} =props
   const colors = props.colors;
 
   return (
@@ -32,6 +35,8 @@ function ProductBadge(props) {
           color={color}
           isSelected={selectedColor === color}
           onClick={handleBadgeClick}
+          SelectedProduct={SelectedProduct}
+          setSelectedProduct={setSelectedProduct}
         />
       ))}
     </div>

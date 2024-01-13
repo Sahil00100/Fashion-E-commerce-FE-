@@ -7,7 +7,15 @@ import { ProductsViewApi } from "./ProductViewApis";
 const SingleProduct = (props) => {
   let location = useLocation();
   let unq_id = location.state.unq_id;
-
+  const [SelectedProduct, setSelectedProduct] = useState({
+    id: null,
+    name: null,
+    price: null,
+    product_code: null,
+    size: null,
+    color: null,
+    images:[]
+  });
   const [state, setState] = useState({
     images: [],
     name: null,
@@ -27,6 +35,15 @@ const SingleProduct = (props) => {
 
       let productsResponseData = productsResponse.data.data;
       setState({ ...state, ...productsResponseData });
+      setSelectedProduct({
+        ...SelectedProduct,
+        id: productsResponseData?.id,
+        name: productsResponseData?.name,
+        price: productsResponseData?.price,
+        product_code: productsResponseData?.product_code,
+        images:productsResponseData?.images,
+        Qty:1
+      });
     };
     getData();
   }, [unq_id]);
@@ -39,8 +56,11 @@ const SingleProduct = (props) => {
     <>
       <Navbar />
       <div class="container mt-5">
-
-        <ProductView state={state} />
+        <ProductView
+          state={state}
+          SelectedProduct={SelectedProduct}
+          setSelectedProduct={setSelectedProduct}
+        />
       </div>
       <Footer />
     </>
