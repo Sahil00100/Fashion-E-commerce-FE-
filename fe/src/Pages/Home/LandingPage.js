@@ -51,6 +51,7 @@ const LandingPage = () => {
   useEffect(() => {
     fetchDataCategory();
   }, []);
+  console.log(state.categories);
   return (
     // <Layout title="Landing Page">
     <main>
@@ -74,6 +75,7 @@ const LandingPage = () => {
                 collection={category.description}
                 title={category.name}
                 id={category?.id}
+                images = {category.images}
               />
             </div>
           ))}

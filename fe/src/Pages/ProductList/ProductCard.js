@@ -26,7 +26,7 @@ const ProductCard = (props) => {
         {/* <ProductBadge colors={product.ColourList} /> */}
         <div className="product-price">₹{product.price}</div>
         {/* <button className="cta-button">Add to Cart</button> */}
-        <a href="#" className="font-weight-normal text-body text-sm">Add To Cart</a>
+        {/* <a href="#" className="font-weight-normal text-body text-sm">Add To Cart</a> */}
       </div>
     </div>
     </>

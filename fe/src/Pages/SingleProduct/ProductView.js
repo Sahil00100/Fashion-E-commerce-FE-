@@ -10,26 +10,6 @@ const ProductView = (props) => {
   const { state, SelectedProduct, setSelectedProduct } = props;
   const navigate = useNavigate();
 
-  // const [SelectedProduct , setSelectedProduct] = useState({
-  //   id:state?.id,
-  //   name:state?.name,
-  //   price:state?.price,
-  //   product_code:state?.product_code,
-  //   size:null,
-  //   color:null
-  // })
-
-  // useEffect(() => {
-  // console.log(state,"state");
-  // setSelectedProduct({
-  //   ...SelectedProduct,
-  //   id:state?.id,
-  //   name:state?.name,
-  //   price:state?.price,
-  //   product_code:state?.product_code,
-  // })
-  // }, []);
-
   const [IsCart, setIsCart] = useState(false);
   const [Error, SetError] = useState({
     name: null,
@@ -88,7 +68,7 @@ const ProductView = (props) => {
               <>
                 <div className="d-flex mb-3">
                   <h4 className="font-weight-normal">
-                    ${state.price ? state.price?.toLocaleString() : 0}
+                  ₹{state.price ? state.price?.toLocaleString() : 0}
                   </h4>
                   <input className="opacity-0" defaultValue={state.price} />
                 </div>

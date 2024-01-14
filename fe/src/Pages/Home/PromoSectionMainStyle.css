@@ -17,7 +17,8 @@
     text-align: center;
     width: 100%;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.7);
+    /* background: rgba(255, 255, 255, 0.7); */
+    background: rgba(239, 228, 239,0.7);
   }
   
   .overlay-container h1 {
@@ -32,7 +33,7 @@
   @media screen and (max-width: 768px) {
     .overlay-container {
       padding: 10px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(239, 228, 239, 0.9);
     }
   
     .overlay-container h1 {

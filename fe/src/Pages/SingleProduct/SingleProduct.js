@@ -14,7 +14,8 @@ const SingleProduct = (props) => {
     product_code: null,
     size: null,
     color: null,
-    images:[]
+    images:[],
+    amount:null
   });
   const [state, setState] = useState({
     images: [],
@@ -30,6 +31,7 @@ const SingleProduct = (props) => {
 
   useEffect(() => {
     const getData = async () => {
+      const currentUrl = window.location.href;
       let data = { id: unq_id };
       let productsResponse = await ProductsViewApi.post("", data);
 
@@ -40,9 +42,11 @@ const SingleProduct = (props) => {
         id: productsResponseData?.id,
         name: productsResponseData?.name,
         price: productsResponseData?.price,
+        amount: productsResponseData?.price,
         product_code: productsResponseData?.product_code,
         images:productsResponseData?.images,
-        Qty:1
+        Qty:1,
+        url:currentUrl
       });
     };
     getData();

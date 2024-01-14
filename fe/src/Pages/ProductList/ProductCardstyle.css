@@ -25,10 +25,14 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+
+  }
+  .product-title:hover{
+    color: #efe4ef;
   }
   
   .product-price {
-    color: #e44d26;
+    /* color: #e44d26; */
     font-size: 16px;
     margin-bottom: 10px;
   }

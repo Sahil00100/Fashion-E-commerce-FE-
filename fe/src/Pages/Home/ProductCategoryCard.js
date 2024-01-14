@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {BASE_URL} from "../../settings";
+import {BASE_URL,BASE_BACKEND_URL} from "../../settings";
 import { useNavigate } from "react-router-dom";
 
 const ProductCategoryCard = (props) => {
@@ -10,7 +10,7 @@ const ProductCategoryCard = (props) => {
     <>
       <div >
         <div className={`card card-background align-items-start mb-4 mb-lg-0 ${props?.classList}`}>
-          <div className="full-background" style={{backgroundImage: `url(${`${BASE_URL}${props.thumb_src}`})`, backgroundSize: 'cover'}}></div>
+          <div className="full-background" style={{backgroundImage: `url(${`${BASE_BACKEND_URL}${props.images}`})`, backgroundSize: 'cover'}}></div>
           <div className={`card-body ${classBody}`}>
             <div className="d-block mt-10">
               <p className="text-white font-weight-bold mb-1">{props.collection}</p>

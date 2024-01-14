@@ -5,45 +5,92 @@ import Pic1 from "../../Images/Pic1.jpg";
 
 const Cart = (props) => {
   const handleSendClick = () => {
-    // if (id?.ProductList?.length > 0) {
-    // if (stockCheck()) {
-    let string = "";
+    let ProductList = state.CartList;
+    let ProductMessage =
+      "Hello, I would like to purchase the following item(s):\n\n";
 
-    // id.ProductList.forEach((item, index) => {
-    const listofProducts =
-      "(${index + 1}) productCode: ${item.data.ProductCode}%0a   Variant: ${item.ProductColor}%0a   SubVariant: ${item.Size}%0a   Quantity: ${item.Quantity}%0a   Link: ${item.ProductLink}%0a";
-    string = string + "%0a" + listofProducts;
-    // });
+    ProductList.map((item) => {
+      ProductMessage +=
+        `- Product: ${item.name}\n` +
+        `  Quantity: ${item.Qty}\n` +
+        `  Size: ${item.size.size}\n` +
+        `  Color: ${item.color.name}\n` +
+        `  URL: ${item.url}\n\n`;
+    });
+
+    let PricingMessage = `Total Price: ${state.TotalAmount}\n\n`;
+
+    const websiteUrl = "https://www.fadslang.com";
+    let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n You can view more products on our website: ${websiteUrl}`;
 
     const phoneNumber = "+91 9605007499"; // Replace with your phone number
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-      string
+      message
     )}`;
 
-    // Open the user's WhatsApp app and pre-fill a message to be sent to your phone number
     window.open(whatsappUrl);
-    // } else {
-    // setOutofstock({ ...outofstock, is_outofstock: true });
-    // swal("Product is Out-of-Stock in Cart");
-    // }
-    // } else {
-    // swal("There is no Product in the cart");
-    // }
   };
   const [state, setState] = useState({
     CartList: [],
+    TotalItems: 0,
+    SubTotal: 0,
+    TotalAmount: 0,
+    calculate: false,
   });
   //Taking value from local storage
   useEffect(() => {
     const getData = () => {
       const CartList = JSON.parse(localStorage.getItem("CartList")) || [];
-      console.log(CartList, "CartList");
       setState((prev) => {
-        return { ...prev, CartList };
+        return { ...prev, CartList, calculate: true };
       });
     };
     getData();
   }, []);
+
+  const Calculation = () => {
+    console.log("*************************");
+    let CartList = state.CartList;
+    let SubTotal = 0;
+    let TotalItems = CartList ? CartList.length : null;
+    CartList.map((item) => {
+      let price = item.price;
+      let Qty = item.Qty;
+      SubTotal = SubTotal + Qty * price;
+    });
+
+    let TotalAmount = SubTotal;
+    setState((prev) => {
+      return { ...prev, SubTotal, TotalItems, TotalAmount, calculate: false };
+    });
+  };
+
+  const ChangeQty = (value, index) => {
+    if (Number(value) >= 0 && value && value !== "0" && value !== "") {
+      let CartList = state.CartList;
+      CartList[index]["Qty"] = value;
+      CartList[index]["amount"] =
+        CartList[index]["price"] * CartList[index]["Qty"];
+      setState((prev) => {
+        return { ...prev, CartList, calculate: true };
+      });
+    }
+  };
+
+  const RemoveItem = (index) => {
+    let CartList = state.CartList;
+    CartList.splice(index, 1);
+    setState((prev) => {
+      return { ...prev, CartList, calculate: true };
+    });
+  };
+
+  useEffect(() => {
+    console.log("1111111111111", state.calculate);
+    if (state.calculate === true) {
+      Calculation();
+    }
+  }, [state.CartList, state.calculate]);
 
   const goToHomePage = () => {
     window.location.href = "/";
@@ -51,11 +98,11 @@ const Cart = (props) => {
 
   // let subtotal = 0;
   // props.products.map((product) => (subtotal += product.price));
-console.log(state,"~~~state");
+  console.log(state, "~~~state");
   return (
     <>
       <div className="container mt-2">
-        <h2 className="mb-3 text-center">Shopping Cart</h2>
+        <h2 className="mb-5 text-center">Shopping Cart</h2>
 
         <div className="row">
           <div className="col-12 col-lg-7">
@@ -65,21 +112,28 @@ console.log(state,"~~~state");
                 <CartItem
                   product={product}
                   setState={setState}
+                  ChangeQty={ChangeQty}
+                  index={i}
+                  RemoveItem={RemoveItem}
                 />
               </>
             ))}
+
+            {!state.CartList || state.CartList.length <= 0 ? (
+              <p style={{textAlign:"center"}}>Your cart is empty</p>
+            ) : null}
           </div>
           <div className="col-12 col-lg-5 mt-5 mt-lg-0">
             <div className="card shadow-xs border bg-gray-100">
               <div className="card-body p-lg-5">
                 <h5 className="mb-4">Order Summary</h5>
-                <OrderSummary subtotal={4545} />
+                <OrderSummary state={state} textColor={"dark"} />
                 <button
                   className="btn btn-dark btn-lg w-100"
                   style={{ backgroundColor: "#128c7e", border: "none" }}
                   onClick={(e) => handleSendClick(e)}
                 >
-                  Checkout to Watsapp
+                  Order Via WhatsApp
                 </button>
                 <button
                   className="btn btn-white btn-lg w-100"
