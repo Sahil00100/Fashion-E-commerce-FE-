@@ -83,7 +83,7 @@ const ShoppingCart = (props) => {
     <div class="my-1 mt-5">
     <Cart products = {state.products}/>
     </div>
-    <Footer />
+    {/* <Footer /> */}
     </>
   );
 };

@@ -68,7 +68,7 @@ const ProductView = (props) => {
               <>
                 <div className="d-flex mb-3">
                   <h4 className="font-weight-normal">
-                  ₹{state.price ? state.price?.toLocaleString() : 0}
+                  ₹{state.price ? Number(state.price).toFixed(2)?.toLocaleString() : 0}
                   </h4>
                   <input className="opacity-0" defaultValue={state.price} />
                 </div>

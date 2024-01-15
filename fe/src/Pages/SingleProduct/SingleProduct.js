@@ -66,7 +66,7 @@ const SingleProduct = (props) => {
           setSelectedProduct={setSelectedProduct}
         />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

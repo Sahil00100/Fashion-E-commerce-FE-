@@ -8,7 +8,7 @@ import Pic4 from "../../Images/Pic4.jpg";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
-
+import usePagination from "../../Components/Pagination"
 import { ProductsListApi, fetchCategories } from "./ProductListApis";
 
 const ProductList = (props) => {
@@ -16,7 +16,8 @@ const ProductList = (props) => {
   let CategoryID = location.state?.CategoryID;
   let title = "Our products";
 
-  const [page, setPage] = useState(1);
+
+
   const [state, setState] = useState({
     count: 1,
     search: "",
@@ -30,10 +31,63 @@ const ProductList = (props) => {
       { id: 2, name: "Price: Low to High", is_true: false },
       { id: 3, name: "Price: High to Low", is_true: false },
     ],
+    SelectedCategories: CategoryID?[CategoryID]:[],
+    SelectedSizes: [],
   });
+  const [page, setPage] = useState(1);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const PER_PAGE = 6;
+  const count = Math.ceil(state.count / PER_PAGE);
+
+  const changeCategoryFilter = (i, index) => {
+    let SelectedCategories = state.SelectedCategories;
+
+    let value = getCategoryValue(i);
+    if (value) {
+      SelectedCategories = SelectedCategories.filter((item) => item !== i.id);
+    } else {
+      SelectedCategories.push(i.id);
+    }
+
+    setState((prev) => {
+      return {
+        ...prev,
+        SelectedCategories: SelectedCategories,
+        is_category: true,
+      };
+    });
+  };
+  const getCategoryValue = (value) => {
+    const SelectedCategories = state.SelectedCategories;
+    return SelectedCategories.some((i) => i === value.id);
+  };
+
+  const changeSizeFilter = (i, index) => {
+    let SelectedSizes = state.SelectedSizes;
+
+    let value = getSizeValue(i);
+    if (value) {
+      SelectedSizes = SelectedSizes.filter((item) => item !== i.id);
+    } else {
+      SelectedSizes.push(i.id);
+    }
+
+    setState((prev) => {
+      return {
+        ...prev,
+        SelectedSizes: SelectedSizes,
+        is_size: true,
+      };
+    });
+  };
+  const getSizeValue = (value) => {
+    const SelectedSizes = state.SelectedSizes;
+    return SelectedSizes.some((i) => i === value.id);
+  };
+
+
   useEffect(() => {
     const fetchDataCatogory = async () => {
       try {
@@ -78,69 +132,57 @@ const ProductList = (props) => {
       search: e.target.value,
     }));
   };
-  const handleCheck = (e, index, name) => {
-    name = state[name];
-    name[index].is_true = e.target.checked;
 
-    setState((prev) => ({
-      ...prev,
-      [name]: name,
-    }));
-  };
-  const handleReorder = (e, valeobj) => {
-    fetchData(valeobj.id);
-  };
-  const fetchData = async (name) => {
-    try {
-      // const { search, filter } = state;
-      let filtercategory = [];
-      if (state.CategoriesList?.length > 0) {
-        const categoriesObject = state.CategoriesList;
-        filtercategory = Object.values(categoriesObject)
-          .filter((category) => category.is_true)
-          .map((category) => category.id);
-      }
-      let filtersubvariant = [];
-      if (state.SubVariantList?.length > 0) {
-        const subVariantObject = state.SubVariantList;
-        filtersubvariant = Object.values(subVariantObject)
-          .filter((sub) => sub.is_true)
-          .map((sub) => sub.id);
-      }
-      // Use the state properties for search and filter
-      const productsResponse = await ProductsListApi.get(
-        `?searchTerm=${
-          state.search
-        }&category=${filtercategory}&sub_variants=${filtersubvariant}&order_by=${name}&page_no=${page}&items_per_page=${10}`
-      );
-      // console.log(productsResponse, '------------');
+  const FetchData2 = async () => {
+    //api calling here
+    let search = state.search;
+    let SelectedCategories = state.SelectedCategories;
+    let SelectedSizes = state.SelectedSizes;
+    let page_no = page
+    let items_per_page = PER_PAGE
+    try{
 
-      let ProductList = productsResponse.data.data;
-      let count = productsResponse.data.count;
-      // console.log(productsResponse,"qwertytfghjhgfdfghjhgfd");
-
-      setState((prev) => {
-        return { ...prev, ProductList, count };
+      const productsResponse = await ProductsListApi.get("", {
+        //url params
+        params: {
+          search: search,
+          categories: SelectedCategories.join(","),
+          sub_variants: SelectedSizes.join(","),
+          page_no,
+          items_per_page
+        },
       });
-    } catch (error) {
+      //response
+  
+      let data = productsResponse.data.data;
+      let count = productsResponse.data.count;
+      setState((prev) => {
+        return {
+          ...prev,
+          ProductList: data,
+          count,
+          is_category: false,
+          is_size: false,
+        };
+      });
+    }
+    catch (error) {
       console.log(error);
     }
+
   };
+
   useEffect(() => {
-    const delay = 400;
+    console.log("***********************************");
+    const timeoutId = setTimeout(() => {
+      console.log("1111111");
+      FetchData2();
+    }, 500);
 
-    const fetchDataWithDelay = (searchValue) => {
-      setTimeout(() => {
-        fetchData(searchValue);
-      }, delay);
+    return () => {
+      clearTimeout(timeoutId);
     };
-
-    if (state.search !== "") {
-      fetchDataWithDelay(state.search);
-    } else {
-      fetchData(page);
-    }
-  }, [state.search, page]); // Include search and filter in the dependency array
+  }, [state.search, state.is_category == true, state.is_size == true,page]);
 
   console.log(state, "stt");
   return (
@@ -158,6 +200,7 @@ const ProductList = (props) => {
               id="standard-basic"
               label="search"
               variant="standard"
+              name="search"
               onChange={(e) => handleChange(e)}
               InputProps={{
                 endAdornment: <SearchIcon style={{ color: "grey" }} />,
@@ -183,32 +226,12 @@ const ProductList = (props) => {
                   <li>
                     <p
                       className="dropdown-item"
-                      onClick={(e) => handleReorder(e, i)}
+                      onClick={(e) => changeCategoryFilter(e, i)}
                     >
                       {i.name}
                     </p>
                   </li>
                 ))}
-                {/* <li>
-                  <a className="dropdown-item" href="javascript:;">
-                    Best Rating
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="javascript:;">
-                    Newest
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="javascript:;">
-                    Price: Low to High
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="javascript:;">
-                    Price: High to Low
-                  </a>
-                </li> */}
               </ul>
             </div>
           </div>
@@ -249,56 +272,13 @@ const ProductList = (props) => {
                         <input
                           className="form-check-input me-2"
                           type="checkbox"
-                          checked={i.is_true}
+                          checked={getCategoryValue(i)}
                           id="customCheck8"
-                          onClick={(e) =>
-                            handleCheck(e, index, "CategoriesList")
-                          }
+                          onClick={(e) => changeCategoryFilter(i, index)}
                         />
                         <label htmlFor="customCheck1">{i.name}</label>
                       </div>
                     ))}
-                    {/* <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customCheck8"
-                      />
-                      <label className="custom-control-label mb-0">
-                        Leather
-                      </label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customCheck9"
-                        checked
-                      />
-                      <label className="custom-control-label mb-0">
-                        Chiffon
-                      </label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customCheck10"
-                      />
-                      <label className="custom-control-label mb-0">Crepe</label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customCheck11"
-                      />
-                      <label className="custom-control-label mb-0">Denim</label>
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -335,10 +315,8 @@ const ProductList = (props) => {
                         <input
                           className="form-check-input me-2"
                           type="checkbox"
-                          checked={i.is_true}
-                          onClick={(e) =>
-                            handleCheck(e, index, "SubVariantList")
-                          }
+                          checked={getSizeValue(i)}
+                          onClick={(e) => changeSizeFilter(i, index)}
                           id="customSize1"
                         />
                         <label className="custom-control-label mb-0">
@@ -346,60 +324,7 @@ const ProductList = (props) => {
                         </label>
                       </div>
                     ))}
-                    {/* <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customSize2"
-                      />
-                      <label className="custom-control-label mb-0">XS</label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customSize3"
-                      />
-                      <label className="custom-control-label mb-0">S</label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customSize4"
-                      />
-                      <label className="custom-control-label mb-0">M</label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customSize5"
-                      />
-                      <label className="custom-control-label mb-0">L</label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customSize6"
-                      />
-                      <label className="custom-control-label mb-0">XL</label>
-                    </div>
-                    <div className="form-check justify-content-start ">
-                      <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        value=""
-                        id="customSize7"
-                      />
-                      <label className="custom-control-label mb-0">XXL</label>
-                    </div> */}
+                  
                   </div>
                 </div>
               </div>
@@ -417,20 +342,16 @@ const ProductList = (props) => {
                   />
                 </div>
               ))}
+            <div className="col-sm-12 mt-1 mb-4">
+            <Pagination style={{display:"flex",justifyContent:"center"}} count={count} page={page} onChange={handleChangePage} />
+            </div>
             </div>
             {/* </div> */}
-            <Stack spacing={2} sx={{ justifyContent: "center" }}>
-              <Pagination
-                count={state.count}
-                onPageChange={handleChangePage}
-                rowsPerPage={10}
-              />
-            </Stack>
           </div>
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

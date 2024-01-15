@@ -31,7 +31,7 @@ const CartItem = (props) => {
             {product.name}
           </h6>
           <div className="d-block d-sm-flex">
-            <p className="pe-3 mb-0">₹{product.amount}</p>
+            <p className="pe-3 mb-0">₹{Number(product.amount).toFixed(2)}</p>
           </div>
           <div className="d-block d-md-flex align-items-center mt-2 md-mt-6"></div>
         </div>
