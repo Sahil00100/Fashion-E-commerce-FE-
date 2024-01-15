@@ -1,12 +1,12 @@
-import axios from 'axios';
-import {BASE_BACKEND_URL} from "../../settings"
+import axios from "axios";
+import { BASE_BACKEND_URL } from "../../settings";
 
 export const ProductsListApi = axios.create({
-    baseURL: BASE_BACKEND_URL + 'api/products/product/',
-  });
+  baseURL: BASE_BACKEND_URL + "api/products/product/",
+});
 export const fetchProducts = async (searchTerm, category) => {
   try {
-    const response = await ProductsListApi.get('', {
+    const response = await ProductsListApi.get("", {
       params: {
         searchTerm: searchTerm,
         category: category,
@@ -18,29 +18,29 @@ export const fetchProducts = async (searchTerm, category) => {
   }
 };
 export const CategoriesApi = axios.create({
-  baseURL: BASE_BACKEND_URL + 'api/products/categories/', 
+  baseURL: BASE_BACKEND_URL + "api/products/categories/",
 });
 export const CategoriesHomeApi = axios.create({
-  baseURL: BASE_BACKEND_URL + 'api/products/categories-home/', 
+  baseURL: BASE_BACKEND_URL + "api/products/categories-home/",
 });
 export const fetchCategories = async () => {
   try {
-    const response = await CategoriesApi.get('');
+    const response = await CategoriesApi.get("");
     return {
       categorydata: response.data.categorydata,
-      subvariantsdata: response.data.subvariantsdata
+      subvariantsdata: response.data.subvariantsdata,
     };
   } catch (error) {
     throw error;
   }
 };
 export const fetchCategoriesHome = async () => {
-  try {
-    const response = await CategoriesHomeApi.get('');
+  // try {
+    const response = await CategoriesHomeApi.get("");
     return {
       categorydata: response.data.data,
     };
-  } catch (error) {
-    throw error;
-  }
+  // } catch (error) {
+  //   throw error;
+  // }
 };

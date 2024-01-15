@@ -7,7 +7,7 @@ import Navbar from "../../Components/Navbar";
 import Pic1 from "../../Images/Pic1.jpg";
 import Footer from "../../Components/Footer"
 import { useEffect } from "react";
-import {  fetchCategoriesHome } from "../ProductList/ProductListApis";
+import {  CategoriesHomeApi } from "./HomeApi";
 const LandingPage = () => {
 
   const [state, setState] = useState({
@@ -38,8 +38,8 @@ const LandingPage = () => {
   });
   const fetchDataCategory = async () => {
     try {
-      const { categorydata: categories } = await fetchCategoriesHome();
-      console.log(categories);
+      const response = CategoriesHomeApi.get("")
+      let categories = (await response).data.data
       setState((prev) => {
         return { ...prev, categories: categories };
       });

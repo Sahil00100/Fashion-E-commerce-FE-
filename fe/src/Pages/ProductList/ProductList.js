@@ -14,7 +14,6 @@ import { ProductsListApi, fetchCategories } from "./ProductListApis";
 const ProductList = (props) => {
   let location = useLocation();
   let CategoryID = location.state?.CategoryID;
-  console.log(CategoryID, "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
   let title = "Our products";
 
   const [page, setPage] = useState(1);
