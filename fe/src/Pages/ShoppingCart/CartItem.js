@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { BASE_URL, BASE_BACKEND_URL } from "../../settings";
+import { BASE_URL, BASE_BACKEND_URL ,MediaURL} from "../../settings";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
 const CartItem = (props) => {
   const navigate = useNavigate();
   let { product, ChangeQty, index,RemoveItem } = props;
-  let image = BASE_BACKEND_URL + product.images[0]["image"];
+  let image = MediaURL + product.images[0]["image"];
 
   const onChange = (e) => {
     let value = e.target.value

@@ -2,7 +2,7 @@ import Pic4 from "../../Images/Pic4.jpg";
 import Pic3 from "../../Images/Pic3.jpg";
 import { Carousel } from "react-bootstrap";
 import "./ProductImage.css"
-import {BASE_BACKEND_URL} from "../../settings"
+import {BASE_BACKEND_URL,MediaURL} from "../../settings"
 
 const ProductImage = (props) => {
   const {images} = props
@@ -23,7 +23,7 @@ const ProductImage = (props) => {
   {images.map((i,index)=>(
 
   <Carousel.Item>
-    <img className="d-block w-100 max-height-carousel" src={BASE_BACKEND_URL+i.image} alt="First slide" />
+    <img className="d-block w-100 max-height-carousel" src={MediaURL+i.image} alt="First slide" />
   </Carousel.Item>
   ))}
 

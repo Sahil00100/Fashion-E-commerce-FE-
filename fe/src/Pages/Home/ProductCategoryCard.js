@@ -1,12 +1,12 @@
 import { useState } from "react";
-import {BASE_URL,BASE_BACKEND_URL} from "../../settings";
+import {BASE_URL,BASE_BACKEND_URL,MediaURL} from "../../settings";
 import { useNavigate } from "react-router-dom";
 
 const ProductCategoryCard = (props) => {
   const classBody = ((props?.cta != null) ? "align-items-end d-flex" : "text-center w-100 pt-8" );
   const navigate = useNavigate();
   console.log(props.images,"image");
-  let image = props.images?BASE_BACKEND_URL + props.images.image:null
+  let image = props.images?MediaURL + props.images.image:null
   return(
     <>
       <div >
