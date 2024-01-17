@@ -23,7 +23,7 @@ const Cart = (props) => {
     const websiteUrl = "https://www.fadslang.com";
     let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n You can view more products on our website: ${websiteUrl}`;
 
-    const phoneNumber = "+91 9605007499"; // Replace with your phone number
+    const phoneNumber = "+91 9605007499"; 
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
       message
     )}`;
@@ -79,6 +79,14 @@ const Cart = (props) => {
 
   const RemoveItem = (index) => {
     let CartList = state.CartList;
+    const storedData = JSON.parse(localStorage.getItem('CartList')) || [];
+    if (index >= 0 && index < storedData.length) {
+      storedData.splice(index, 1);
+      localStorage.setItem('CartList', JSON.stringify(storedData));
+    } else {
+      console.error('Invalid index specified for removal.');
+    }
+
     CartList.splice(index, 1);
     setState((prev) => {
       return { ...prev, CartList, calculate: true };

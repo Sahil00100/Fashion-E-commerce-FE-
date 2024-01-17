@@ -35,12 +35,12 @@ const App = () => {
       <Routes>
         <Route path="/*" element={<Home />} />
         <Route path="/product/" element={<ProductList />} />
-        <Route path="/product/view/" element={<SingleProduct />} />
+        <Route path="/product/view/:unq_id" element={<SingleProduct />} />
         <Route path="/cart/" element={<ShoppingCart />} />
         <Route path="/about-us/" element={<AboutUs />} />
         <Route path="/order/" element={<Orders />} />
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter>  
   );
 };
 

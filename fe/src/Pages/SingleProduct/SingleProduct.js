@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import ProductView from "./ProductView";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
-import { useLocation } from "react-router-dom";
+import { useLocation,useParams } from "react-router-dom";
 import { ProductsViewApi } from "./ProductViewApis";
 const SingleProduct = (props) => {
   let location = useLocation();
-  let unq_id = location.state.unq_id;
+  let { unq_id } = useParams();
   const [SelectedProduct, setSelectedProduct] = useState({
     id: null,
     name: null,
@@ -32,8 +32,11 @@ const SingleProduct = (props) => {
   useEffect(() => {
     const getData = async () => {
       const currentUrl = window.location.href;
-      let data = { id: unq_id };
-      let productsResponse = await ProductsViewApi.post("", data);
+      let productsResponse = await ProductsViewApi.get("", {
+        params:{
+          id:unq_id
+        }
+      });
 
       let productsResponseData = productsResponse.data.data;
       setState({ ...state, ...productsResponseData });

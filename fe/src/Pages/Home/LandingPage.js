@@ -7,7 +7,7 @@ import Navbar from "../../Components/Navbar";
 import Pic1 from "../../Images/Pic1.jpg";
 import Footer from "../../Components/Footer"
 import { useEffect } from "react";
-import {  CategoriesHomeApi } from "./HomeApi";
+import {  CategoriesHomeApi,LandingPageImageApi } from "./HomeApi";
 const LandingPage = () => {
 
   const [state, setState] = useState({
@@ -47,11 +47,24 @@ const LandingPage = () => {
       console.log(error);
     }
   };
+  const fetchDataLandingPageImage = async () => {
+    try {
+      const response = LandingPageImageApi.get("")
+      console.log(response,"pppppppppppppppppppp");
+      let LandingPageImage = (await response).data.data
+      setState((prev) => {
+        return { ...prev, LandingPageImage: LandingPageImage};
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // 
   useEffect(() => {
+    fetchDataLandingPageImage()
     fetchDataCategory();
   }, []);
-  console.log(state.categories);
+  console.log(state,"state!!");
   return (
     // <Layout title="Landing Page">
     <main>
@@ -60,6 +73,7 @@ const LandingPage = () => {
         title={"Explore New Collections"}
         full_description={state.full_description}
         pageHeaderMinVh="90vh"
+        LandingPageImage={state.LandingPageImage}
       />
 
       <div className="container my-5">

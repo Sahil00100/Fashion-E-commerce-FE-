@@ -9,3 +9,6 @@ export const ProductsListApi = axios.create({
 export const CategoriesHomeApi = axios.create({
   baseURL: BASE_BACKEND_URL + "api/products/categories-home/",
 });
+export const LandingPageImageApi = axios.create({
+  baseURL: BASE_BACKEND_URL + "api/dashboard/landing-image/",
+});

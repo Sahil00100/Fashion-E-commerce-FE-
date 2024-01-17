@@ -53,6 +53,11 @@ const ProductView = (props) => {
   };
   console.log(SelectedProduct, "SelectedProduct",Error);
   const sizeID = Date.now();
+
+  const descriptionsArray = state?.description?.split(',').map((item, index) => (
+    <li key={index}>{item.trim()}</li>
+  ));
+
   return (
     <>
       <div className="card card-product card-plain ">
@@ -74,7 +79,8 @@ const ProductView = (props) => {
                 </div>
               </>
             )}
-            <p className="mt-4">{state.description}</p>
+            {/* <p className="mt-4">{state.description}</p> */}
+            <ul>{descriptionsArray}</ul>
 
             <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
               <h6 className="mb-0">Size</h6>
@@ -131,7 +137,7 @@ const ProductView = (props) => {
                 </>
               ) : (
                 <button
-                  className="btn btn-dark btn-lg mb-0 me-4"
+                  className="btn btn-dark btn-lg mb-5 me-4"
                   onClick={() => {
                     onClickCart();
                   }}

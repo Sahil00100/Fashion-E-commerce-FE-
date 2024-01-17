@@ -31,11 +31,14 @@ import Pic1 from '../../Images/Pic1.jpg';
 import HomeButton from './HomeButton';
 import './PromoSectionMainStyle.css'; // Import your CSS file
 import { useNavigate } from "react-router-dom";
-const PromoSectionMain = () => {
+import { BASE_URL, BASE_BACKEND_URL ,MediaURL} from "../../settings";
+
+const PromoSectionMain = (props) => {
+  let LandingPageImage =MediaURL+ props.LandingPageImage
   const navigate = useNavigate();
   return (
     <div className="image-container">
-      <img className="d-block w-100" src={Pic3} alt="Second slide" />
+      <img className="d-block w-100" src={Pic1} alt="Second slide" />
       <div className="overlay-container">
         <h1 className='heading1'>Discover the Latest Trends</h1>
         <HomeButton />
