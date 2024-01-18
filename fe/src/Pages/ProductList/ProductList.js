@@ -188,7 +188,7 @@ const ProductList = (props) => {
   return (
     <>
       <Navbar />
-      <div className="mx-2 mx-sm-4 mx-md-4 mx-lg-4 card card-product card-plain mt-1 mt-sm-2 mt-md-3 mt-lg-5" style={{height:"calc(100vh - 200px)",maxWidth:"100vw"}}>
+      <div className="mx-2 mx-sm-4 mx-md-4 mx-lg-4 card card-product card-plain mt-1 mt-sm-2 mt-md-3 mt-lg-5 h-sm-auto" style={{maxWidth:"100vw"}}>
         <div className="d-block d-sm-flex border-bottom pb-md-3">
           {title.length !== 0 && <h2 className="mb-3">{title}</h2>}
 
@@ -442,7 +442,7 @@ const ProductList = (props) => {
             {/* <div className="d-flex h-100"> */}
               <div className="row" style={{height:"60vh",overflowY:"scroll"}}>
                 {state.ProductList.map((product) => (
-                  <div className="col-6 col-md-6 col-lg-4">
+                  <div className="col-6 col-md-6 col-lg-4 px-1 px-sm-2 ">
                     <ProductCard
                       position="center"
                       // dataList={dataList}
@@ -453,7 +453,7 @@ const ProductList = (props) => {
                 ))}
               </div>
             {/* </div> */}
-            <div className="col-sm-12 mt-1 mb-4">
+            <div className="col-sm-12 mt-1 mb-4 ">
             <Pagination style={{display:"flex",justifyContent:"center"}} count={count} page={page} onChange={handleChangePage} />
             </div>
           </div>
