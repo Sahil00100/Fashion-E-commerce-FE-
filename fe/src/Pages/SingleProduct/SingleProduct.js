@@ -60,17 +60,17 @@ const SingleProduct = (props) => {
   const classList = "card-body " + "text-" + props.position;
   console.log(state, "11111111111");
   return (
-    <>
+    < div style={{height:"calc(100vh - 190px)"}}>
       <Navbar />
-      <div class="container mt-1 mt-sm-2 mt-md-4 mt-lg-5">
+      <div class="container mt-1 mt-sm-2 mt-md-4 mt-lg-5" >
         <ProductView
           state={state}
           SelectedProduct={SelectedProduct}
           setSelectedProduct={setSelectedProduct}
         />
       </div>
-      <Footer />
-    </>
+      {/* <Footer /> */}
+    </div >
   );
 };
 

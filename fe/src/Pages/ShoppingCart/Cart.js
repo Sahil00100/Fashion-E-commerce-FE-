@@ -24,7 +24,7 @@ const Cart = (props) => {
     const websiteUrl = "https://www.fadslang.com";
     let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n You can view more products on our website: ${websiteUrl}`;
 
-    const phoneNumber = "+91 9605007499"; 
+    const phoneNumber = "+91 9645557237"; 
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
       message
     )}`;
@@ -102,7 +102,7 @@ const Cart = (props) => {
   }, [state.CartList, state.calculate]);
 
   const goToHomePage = () => {
-    window.location.href = "/";
+    window.location.href = "/product";
   };
 
   // let subtotal = 0;
