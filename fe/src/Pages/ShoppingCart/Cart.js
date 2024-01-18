@@ -110,7 +110,7 @@ const Cart = (props) => {
   console.log(state, "~~~state");
   return (
     <>
-      <div className="container mt-2" style={{height:"calc(100vh - 180px)",maxWidth:"100vw"}}>
+      <div className="container mt-2" style={{height:"calc(100vh - 190px)",maxWidth:"100vw"}}>
         <h2 className="mb-5 text-center">Shopping Cart</h2>
 
         <div className="row">
