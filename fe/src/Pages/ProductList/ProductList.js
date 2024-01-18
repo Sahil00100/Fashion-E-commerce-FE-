@@ -435,24 +435,31 @@ const ProductList = (props) => {
               </div>
             </div>
           </div>
+  
+
+
           <div className="col-12 col-md-8">
             {/* <div className="d-flex h-100"> */}
-            <div className="row" style={{ height: "90%" }}>
-              {state.ProductList.map((product) => (
-                <div className=" col-md-6 col-lg-4">
-                  <ProductCard
-                    position="center"
-                    product={product}
-                    // product={product}
-                  />
-                </div>
-              ))}
+              <div className="row" style={{height:"60vh",overflowY:"scroll"}}>
+                {state.ProductList.map((product) => (
+                  <div className="col-6 col-md-6 col-lg-4">
+                    <ProductCard
+                      position="center"
+                      // dataList={dataList}
+                      product={product}
+                      // product={product}
+                    />
+                  </div>
+                ))}
+              </div>
+            {/* </div> */}
             <div className="col-sm-12 mt-1 mb-4">
             <Pagination style={{display:"flex",justifyContent:"center"}} count={count} page={page} onChange={handleChangePage} />
             </div>
-            </div>
-            {/* </div> */}
           </div>
+
+
+
         </div>
       </div>
 
