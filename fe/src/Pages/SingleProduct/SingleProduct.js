@@ -62,14 +62,14 @@ const SingleProduct = (props) => {
   return (
     <>
       <Navbar />
-      <div class="container mt-5">
+      <div class="container mt-1 mt-sm-2 mt-md-4 mt-lg-5">
         <ProductView
           state={state}
           SelectedProduct={SelectedProduct}
           setSelectedProduct={setSelectedProduct}
         />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

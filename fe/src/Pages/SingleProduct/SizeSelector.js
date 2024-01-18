@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 function SizeTag({ size,id, isSelected, onClick,setSelectedProduct,SelectedProduct }) {
   const sizeTagStyle = {
     display: 'inline-block',
-    padding: '15px 20px', // Increase the size as needed
+    padding: '10px 10px', // Increase the size as needed
     borderRadius: '8px', // Set the border-radius for rounded corners
     backgroundColor: 'white',
     color: isSelected ? 'black' : 'grey',
     border: isSelected ? '2px solid black' : '1px solid grey',
     cursor: 'pointer',
     marginRight: '10px',
-    minWidth: '80px', // Set the minimum width
+    minWidth: '50px', // Set the minimum width
     minHeight: '5px', // Set the minimum height
     marginTop:"10px"
   };
