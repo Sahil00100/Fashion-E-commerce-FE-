@@ -51,7 +51,7 @@ const LandingPage = () => {
     try {
       const response = LandingPageImageApi.get("")
       console.log(response,"pppppppppppppppppppp");
-      let LandingPageImage = (await response).data.data
+      let LandingPageImage = (await response).data.data.image
       setState((prev) => {
         return { ...prev, LandingPageImage: LandingPageImage};
       });

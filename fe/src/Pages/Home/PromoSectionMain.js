@@ -38,7 +38,7 @@ const PromoSectionMain = (props) => {
   const navigate = useNavigate();
   return (
     <div className="image-container">
-      <img className="d-block w-100" src={Pic1} alt="Second slide" />
+      <img className="d-block w-100" src={LandingPageImage} alt="Second slide" />
       <div className="overlay-container">
         <h1 className='heading1'>Discover the Latest Trends</h1>
         <HomeButton />
