@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CartItem from "./CartItem";
 import OrderSummary from "./OrderSummary";
 import Pic1 from "../../Images/Pic1.jpg";
+import Footer from "../../Components/Footer";
 
 const Cart = (props) => {
   const handleSendClick = () => {
@@ -109,7 +110,7 @@ const Cart = (props) => {
   console.log(state, "~~~state");
   return (
     <>
-      <div className="container mt-2">
+      <div className="container mt-2" style={{height:"calc(100vh - 180px)",maxWidth:"100vw"}}>
         <h2 className="mb-5 text-center">Shopping Cart</h2>
 
         <div className="row">
@@ -150,13 +151,14 @@ const Cart = (props) => {
                   Continue Shopping
                 </button>
                 <p className="text-center">
-                  Tax included. Shipping calculated at checkout.
+                 Shipping calculated at checkout.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+        <Footer />
     </>
   );
 };

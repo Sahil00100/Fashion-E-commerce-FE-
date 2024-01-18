@@ -50,7 +50,7 @@ const AboutUs = (props) => {
         </div>
       </div>
 
-      {/* <Footer /> */}
+       
     </>
   );
 };
