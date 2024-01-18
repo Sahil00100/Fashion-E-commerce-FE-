@@ -248,7 +248,7 @@ const ProductList = (props) => {
             </div>
           </div>
         </div>
-        <div className="row mt-1 mt-sm-2 mt-md-4 mt-5 h-100">
+        <div className="row mt-1 mt-sm-2 mt-md-4 mt-lg-5 h-100">
           <div className="col-12 col-md-4" >
             <div className="accordion" id="accordionArrivals">
               <div className="accordion-item">
@@ -450,9 +450,9 @@ const ProductList = (props) => {
                 ))}
               </div>
             {/* </div> */}
-            <Stack spacing={2} sx={{justifyContent:"center"}}>
-            <Pagination count={state.count} onPageChange={handleChangePage} rowsPerPage={10}/>
-          </Stack>
+            <Stack spacing={2} sx={{ justifyContent: 'center', textAlign: 'center' }}>
+          <Pagination count={state.count} onPageChange={handleChangePage} rowsPerPage={10} />
+        </Stack>
           </div>
         </div>
       </div>
