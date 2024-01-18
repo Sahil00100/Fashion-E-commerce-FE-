@@ -2,7 +2,7 @@ import { useState } from "react";
 import BASE_URL from "../../settings";
 import { useNavigate } from "react-router-dom";
 import Pic4 from "../../Images/Pic4.jpg";
-import {BASE_BACKEND_URL} from "../../settings"
+import {MediaURL} from "../../settings"
 
 import "./ProductCardstyle.css"
 const ProductCard = (props) => {
@@ -12,7 +12,7 @@ const ProductCard = (props) => {
   const classList = "card-body " + "text-" + "center";
   let {product} = props
 
-  let image = BASE_BACKEND_URL + product.images[0]['image']
+  let image = MediaURL + product.images[0]['image']
   return (
     <>
  <div className="product-card">
