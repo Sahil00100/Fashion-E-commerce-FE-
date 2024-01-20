@@ -41,8 +41,8 @@ const LandingPage = () => {
         collection: "Sale",
       },
     ],
-    CarousalImageList:[],
-    ProductImageList:[]
+    CarousalImageList: [],
+    ProductImageList: [],
   });
   const fetchDataCategory = async () => {
     try {
@@ -60,10 +60,15 @@ const LandingPage = () => {
       const response = LandingPageImageApi.get("");
       console.log(response, "pppppppppppppppppppp");
       let LandingPageImage = (await response).data.data.image;
-      let CarousalImageList = (await response).data.data2
-      let ProductImageList = (await response).data.data3
+      let CarousalImageList = (await response).data.data2;
+      let ProductImageList = (await response).data.data3;
       setState((prev) => {
-        return { ...prev, LandingPageImage: LandingPageImage,CarousalImageList,ProductImageList };
+        return {
+          ...prev,
+          LandingPageImage: LandingPageImage,
+          CarousalImageList,
+          ProductImageList,
+        };
       });
     } catch (error) {
       console.log(error);
@@ -79,18 +84,20 @@ const LandingPage = () => {
     // <Layout title="Landing Page">
     <main>
       <Navbar />
-{state.CarousalImageList.length?(
-      <Carausal CarousalImageList = {state.CarousalImageList} />
-):null}
 
-      <PromoSectionMain
-        title={"Explore New Collections"}
-        full_description={state.full_description}
-        pageHeaderMinVh="90vh"
-        LandingPageImage={state.LandingPageImage}
-      />
+      <div>
+        <PromoSectionMain
+          title={"Explore New Collections"}
+          full_description={state.full_description}
+          pageHeaderMinVh="90vh"
+          LandingPageImage={state.LandingPageImage}
+        />
+      </div>
+      {state.CarousalImageList.length ? (
+        <Carausal CarousalImageList={state.CarousalImageList} />
+      ) : null}
 
-      <div className="container my-5">
+      <div className="container my-5 mt-5">
         <div className="d-block text-center mb-5">
           <h3>Latest Drops</h3>
           {/* <a className="text-dark font-weight-bold" href="#">Browse all categories &#62;</a> */}
@@ -98,13 +105,16 @@ const LandingPage = () => {
         <div className="row mb-5">
           {state.ProductImageList.slice(0, 4).map((product) => (
             <div className="col-6 col-md-6 col-lg-3 px-1 px-sm-2">
-              <ProductCard
-product={product} 
-              />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>
-        <p style={{ textAlign: "center",cursor:'pointer' }} onClick={()=>{navigate("/product")}}>
+        <p
+          style={{ textAlign: "center", cursor: "pointer" }}
+          onClick={() => {
+            navigate("/product");
+          }}
+        >
           See More <ExpandMoreIcon />
         </p>
       </div>

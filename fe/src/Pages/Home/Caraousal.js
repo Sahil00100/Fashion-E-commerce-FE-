@@ -15,7 +15,7 @@ const Carausal = (props) => {
     <Carousel className="custom-carousel">
       {CarousalImageList.map((item) => (
         <Carousel.Item key={item.id}>
-          <img className="d-block w-100" src={MediaURL + item.image} alt={`Slide ${item.id}`} />
+          <img onClick={()=>{navigate("/product")}} className="d-block w-100" src={MediaURL + item.image} alt={`Slide ${item.id}`} />
         </Carousel.Item>
       ))}
     </Carousel>

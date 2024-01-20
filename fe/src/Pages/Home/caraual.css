@@ -8,7 +8,7 @@
   
   @media (min-width: 768px) {
     .custom-carousel {
-      height: 70vh; /* Set the height to 70% of the viewport height for larger screens */
+      /* height: 70vh;  */
     }
   }
   

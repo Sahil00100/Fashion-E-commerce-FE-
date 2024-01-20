@@ -16,47 +16,49 @@ const ProductView = (props) => {
     ErrorMessage: null,
   });
   const validation = () => {
-    let name = null;
-    let ErrorMessage = null;
-    let IsError = false;
-    if (!SelectedProduct.size && !IsError) {
-      IsError = true;
-      ErrorMessage = "Please Select A Size";
-      name = "size";
-    } else if (!SelectedProduct.color && !IsError) {
-      IsError = true;
-      ErrorMessage = "Please Select A Color";
-      name = "color";
-    }
+    // let name = null;
+    // let ErrorMessage = null;
+    // let IsError = false;
+    // if (!SelectedProduct.size && !IsError) {
+    //   IsError = true;
+    //   ErrorMessage = "Please Select A Size";
+    //   name = "size";
+    // } else if (!SelectedProduct.color && !IsError) {
+    //   IsError = true;
+    //   ErrorMessage = "Please Select A Color";
+    //   name = "color";
+    // }
 
-    if (IsError) {
-      SetError({
-        name,
-        ErrorMessage,
-      });
-    }
+    // if (IsError) {
+    //   SetError({
+    //     name,
+    //     ErrorMessage,
+    //   });
+    // }
 
-    return IsError;
+    // return IsError;
+    return false;
   };
   const onClickCart = async () => {
-    let IsError = await validation()
-    if (IsError===false){
+    let IsError = await validation();
+    if (IsError === false) {
       SetError({
-        name:null,
-        ErrorMessage:null,
+        name: null,
+        ErrorMessage: null,
       });
       setIsCart(true);
-      const existingCartList = JSON.parse(localStorage.getItem("CartList")) || [];
+      const existingCartList =
+        JSON.parse(localStorage.getItem("CartList")) || [];
       const updatedCartList = [...existingCartList, SelectedProduct];
       localStorage.setItem("CartList", JSON.stringify(updatedCartList));
     }
   };
-  console.log(SelectedProduct, "SelectedProduct",Error);
+  console.log(SelectedProduct, "SelectedProduct", Error);
   const sizeID = Date.now();
 
-  const descriptionsArray = state?.description?.split(',').map((item, index) => (
-    <li key={index}>{item.trim()}</li>
-  ));
+  const descriptionsArray = state?.description
+    ?.split(",")
+    .map((item, index) => <li key={index}>{item.trim()}</li>);
 
   return (
     <>
@@ -68,12 +70,21 @@ const ProductView = (props) => {
             </div>
           )}
           <div className="col-12 col-lg-6 mt-5 mt-lg-0">
-            {state.name?.length !== 0 && <h2>{state.name}</h2>}
+            {state.name?.length !== 0 && (
+              <h2
+       
+              >
+                {state.name}
+              </h2>
+            )}
             {state.price?.length !== 0 && (
               <>
                 <div className="d-flex mb-3">
                   <h4 className="font-weight-normal">
-                  ₹{state.price ? Number(state.price).toFixed(2)?.toLocaleString() : 0}
+                    ₹
+                    {state.price
+                      ? Number(state.price).toFixed(2)?.toLocaleString()
+                      : 0}
                   </h4>
                   <input className="opacity-0" defaultValue={state.price} />
                 </div>
@@ -85,7 +96,9 @@ const ProductView = (props) => {
             <div className="mt-4 d-flex me-4 justify-content-between align-items-center">
               <h6 className="mb-0">Size</h6>
             </div>
-              <p style={{color:"red"}}>{Error.name==="size"?Error.ErrorMessage:null}</p>
+            <p style={{ color: "red" }}>
+              {Error.name === "size" ? Error.ErrorMessage : null}
+            </p>
             <div className="d-flex flex-wrap text-center my-4">
               {/* {Object.entries(state.sub_variants).map(([size, amount], i) => 
 
@@ -111,7 +124,9 @@ const ProductView = (props) => {
             {state.variants?.length !== 0 && (
               <>
                 <h6 className="mt-4">Color:</h6>
-              <p style={{color:"red"}}>{Error.name==="color"?Error.ErrorMessage:null}</p>
+                <p style={{ color: "red" }}>
+                  {Error.name === "color" ? Error.ErrorMessage : null}
+                </p>
 
                 {state.variants && (
                   <ProductBadge
@@ -127,7 +142,7 @@ const ProductView = (props) => {
               {IsCart ? (
                 <>
                   <button
-                    className="btn btn-dark btn-lg mb-0 me-4"
+                    className="btn btn-success btn-lg mb-0 me-4"
                     onClick={() => {
                       navigate("/cart");
                     }}

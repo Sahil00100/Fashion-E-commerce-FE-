@@ -37,6 +37,7 @@ const PromoSectionMain = (props) => {
   let LandingPageImage =MediaURL+ props.LandingPageImage
   const navigate = useNavigate();
   return (
+    <>
     <div className="image-container">
       <img className="d-block w-100" src={LandingPageImage} alt="Second slide" />
       <div className="overlay-container">
@@ -44,6 +45,8 @@ const PromoSectionMain = (props) => {
         <HomeButton />
       </div>
     </div>
+    
+    </>
   );
 };
 

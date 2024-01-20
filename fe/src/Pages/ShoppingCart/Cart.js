@@ -7,30 +7,31 @@ import Footer from "../../Components/Footer";
 const Cart = (props) => {
   const handleSendClick = () => {
     let ProductList = state.CartList;
-    let ProductMessage =
-      "Hello, I would like to purchase the following item(s):\n\n";
-
+    let ProductMessage = "Hello, I would like to purchase the following item(s):\n\n";
+  
     ProductList.map((item) => {
       ProductMessage +=
         `- Product: ${item.name}\n` +
         `  Quantity: ${item.Qty}\n` +
-        `  Size: ${item.size.size}\n` +
-        `  Color: ${item.color.name}\n` +
+        `  Size: ${item.size?item.size.size:""}\n` +
+        `  Color: ${item.color?item.color.name:""}\n` +
         `  URL: ${item.url}\n\n`;
     });
-
+  
     let PricingMessage = `Total Price: ${state.TotalAmount}\n\n`;
-
+  
     const websiteUrl = "https://www.fadslang.com";
-    let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n You can view more products on our website: ${websiteUrl}`;
-
-    const phoneNumber = "+91 9645557237"; 
+    let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n We will get back to you as soon as possible. \n You can view more products on our website: ${websiteUrl}`;
+  
+    const phoneNumber = "+91 9645557237";
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
       message
     )}`;
-
-    window.open(whatsappUrl);
+  
+    // Use window.location.href instead of window.open
+    window.location.href = whatsappUrl;
   };
+  
   const [state, setState] = useState({
     CartList: [],
     TotalItems: 0,
@@ -114,7 +115,7 @@ const Cart = (props) => {
         <h2 className="mb-5 text-center">Shopping Cart</h2>
 
         <div className="row">
-          <div className="col-12 col-lg-7">
+          <div className="col-12 col-lg-7" style={{maxHeight:"500px",overflowY:"scroll"}}>
             {state.CartList.map((product, i) => (
               <>
                 {i !== 0 && <hr className="horizontal dark my-4" />}

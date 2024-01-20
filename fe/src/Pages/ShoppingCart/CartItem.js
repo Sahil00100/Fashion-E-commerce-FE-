@@ -14,10 +14,10 @@ const CartItem = (props) => {
 
   return (
     <>
-      <div className="d-flex d-md-flex">
+      <div className="d-flex d-md-flex" style={{maxHeight:"180px" }}>
         <img
           className="w-50 w-md-30 rounded-3 img-fluid "
-          style={{ maxWidth: "30%" }}
+          style={{ maxWidth: "30%"}}
           src={image}
           alt={product.name}
         />

@@ -3,29 +3,47 @@ import BASE_URL from "../../settings";
 import ProductBadge from "./productBadge";
 import { useNavigate } from "react-router-dom";
 import Pic4 from "../../Images/Pic4.jpg";
-import {MediaURL} from "../../settings"
+import { MediaURL } from "../../settings";
 
-import "./ProductCardstyle.css"
+import "./ProductCardstyle.css";
 const ProductCard = (props) => {
-
   const navigate = useNavigate();
 
   const classList = "card-body " + "text-" + "center";
-  let {product} = props
+  let { product } = props;
 
-  let image = MediaURL + product.images[0]['image']
+  let image = MediaURL + product.images[0]["image"];
   return (
     <>
- <div className="product-card">
-      <div className="product-image" style={{ backgroundImage: `url(${image})` }}></div> 
-      <div className="product-details">
-        <div className="product-title" style={{cursor:"pointer"}} onClick={()=>{navigate(`/product/view/${product.id}`)}}>{product.name}</div>
-        {/* <ProductBadge colors={product.ColourList} /> */}
-        <div className="product-price">₹{Number(product.price).toFixed(2)}</div>
-        {/* <button className="cta-button">Add to Cart</button> */}
-        {/* <a href="#" className="font-weight-normal text-body text-sm">Add To Cart</a> */}
+      <div className="product-card">
+        <div
+          className="product-image"
+          style={{ backgroundImage: `url(${image})` }}
+        ></div>
+        <div className="product-details">
+          <div
+            className="producitem.colort-title"
+            style={{
+              maxWidth: "175px",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate(`/product/view/${product.id}`);
+            }}
+          >
+            {product.name}
+          </div>
+          {/* <ProductBadge colors={product.ColourList} /> */}
+          <div className="product-price">
+            ₹{Number(product.price).toFixed(2)}
+          </div>
+          {/* <button className="cta-button">Add to Cart</button> */}
+          {/* <a href="#" className="font-weight-normal text-body text-sm">Add To Cart</a> */}
+        </div>
       </div>
-    </div>
     </>
   );
 };
