@@ -5,16 +5,43 @@ import Pic1 from "../../Images/Pic1.jpg";
 import Footer from "../../Components/Footer";
 
 const Cart = (props) => {
+  // const handleSendClick = () => {
+  //   let ProductList = state.CartList;
+  //   let ProductMessage = "Hello, I would like to purchase the following item(s):\n\n";
+  
+  //   ProductList.map((item) => {
+  //     ProductMessage +=
+  //       `- Product: ${item.name}\n` +
+  //       `  Quantity: ${item.Qty}\n` +
+  //       `  Size: ${item.size?item.size.size:""}\n` +
+  //       `  Color: ${item.color?item.color.name:""}\n` +
+  //       `  URL: ${item.url}\n\n`;
+  //   });
+  
+  //   let PricingMessage = `Total Price: ${state.TotalAmount}\n\n`;
+  
+  //   const websiteUrl = "https://www.fadslang.com";
+  //   let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n We will get back to you as soon as possible. \n You can view more products on our website: ${websiteUrl}`;
+  
+  //   const phoneNumber = "+91 9645557237";
+  //   const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
+  //     message
+  //   )}`;
+  
+  //   // Use window.location.href instead of window.open
+  //   // window.location.href = whatsappUrl;
+  //   window.open(whatsappUrl);
+  // };
   const handleSendClick = () => {
     let ProductList = state.CartList;
     let ProductMessage = "Hello, I would like to purchase the following item(s):\n\n";
   
-    ProductList.map((item) => {
+    ProductList.forEach((item) => {
       ProductMessage +=
         `- Product: ${item.name}\n` +
         `  Quantity: ${item.Qty}\n` +
-        `  Size: ${item.size?item.size.size:""}\n` +
-        `  Color: ${item.color?item.color.name:""}\n` +
+        `  Size: ${item.size ? item.size.size : ""}\n` +
+        `  Color: ${item.color ? item.color.name : ""}\n` +
         `  URL: ${item.url}\n\n`;
     });
   
@@ -23,15 +50,15 @@ const Cart = (props) => {
     const websiteUrl = "https://www.fadslang.com";
     let message = `${ProductMessage}${PricingMessage}Thank you for your order! \n We will get back to you as soon as possible. \n You can view more products on our website: ${websiteUrl}`;
   
-    const phoneNumber = "+91 9645557237";
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-      message
-    )}`;
+    const phoneNumber = "+919645557237";
+    const apiEndpoint = "https://api.whatsapp.com/send";
+    const whatsappUrl = `${apiEndpoint}?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
   
-    // Use window.location.href instead of window.open
-    window.location.href = whatsappUrl;
+    window.open(whatsappUrl);
   };
-  
+
+
+
   const [state, setState] = useState({
     CartList: [],
     TotalItems: 0,

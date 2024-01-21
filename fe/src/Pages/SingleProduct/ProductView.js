@@ -142,7 +142,7 @@ const ProductView = (props) => {
               {IsCart ? (
                 <>
                   <button
-                    className="btn btn-success btn-lg mb-0 me-4"
+                    className="btn btn-success btn-lg mb-5 me-4"
                     onClick={() => {
                       navigate("/cart");
                     }}
