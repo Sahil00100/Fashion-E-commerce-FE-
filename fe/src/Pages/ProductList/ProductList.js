@@ -228,7 +228,7 @@ const ProductList = (props) => {
             />
 
             <div className="dropdown">
-              <button
+              {/* <button
                 className="btn btn-link text-dark mb-0 dropdown-toggle p-2 p-sm-3"
                 type="button"
                 id="sortButton"
@@ -243,7 +243,7 @@ const ProductList = (props) => {
                     <p className="dropdown-item">{i.name}</p>
                   </li>
                 ))}
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>
