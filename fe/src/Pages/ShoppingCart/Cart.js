@@ -95,7 +95,7 @@ const Cart = (props) => {
   };
 
   const ChangeQty = (value, index) => {
-    if (Number(value) >= 0 && value && value !== "0" && value !== "") {
+    // if (Number(value) >= 0 && value && value !== "0" && value !== "") {
       let CartList = state.CartList;
       CartList[index]["Qty"] = value;
       CartList[index]["amount"] =
@@ -103,7 +103,7 @@ const Cart = (props) => {
       setState((prev) => {
         return { ...prev, CartList, calculate: true };
       });
-    }
+    // }
   };
 
   const RemoveItem = (index) => {

@@ -12,7 +12,13 @@ const ProductCard = (props) => {
   const classList = "card-body " + "text-" + "center";
   let { product } = props;
 
-  let image = MediaURL + product.images[0]["image"];
+  // let image = MediaURL + product.images[0]["image"];
+  let image = null
+  if (product.images){
+    if (product.images.length>0){
+       image = MediaURL + product.images[0]["image"];
+    }
+  }
   return (
     <>
       <div className="product-card">
