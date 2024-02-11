@@ -137,7 +137,7 @@ const ProductView = (props) => {
                 )}
               </>
             )}
-
+       
             <div className="d-flex align-items-center mt-4">
               {IsCart ? (
                 <>

@@ -83,7 +83,7 @@ const LandingPage = () => {
   return (
     // <Layout title="Landing Page">
     <main>
-      <Navbar />
+      <Navbar is_page={"home"} />
 
       <div>
         <PromoSectionMain

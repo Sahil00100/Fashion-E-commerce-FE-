@@ -79,7 +79,7 @@ const ShoppingCart = (props) => {
   })
   return (
   <>
-    <Navbar/>
+    <Navbar is_page = {"cart"} />
     <div class="my-1 mt-5">
     <Cart products = {state.products}/>
     </div>

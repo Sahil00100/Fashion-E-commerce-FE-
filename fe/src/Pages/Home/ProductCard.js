@@ -21,8 +21,11 @@ const ProductCard = (props) => {
     <>
       <div className="product-card">
         <div
+           onClick={() => {
+            navigate(`/product/view/${product.id}`);
+          }}
           className="product-image"
-          style={{ backgroundImage: `url(${image})` }}
+          style={{ backgroundImage: `url(${image})`,cursor: "pointer" }}
         ></div>
         <div className="product-details">
           <div

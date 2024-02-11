@@ -56,7 +56,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from "react-router-dom";
 
-const MyNavbar = () => {
+const MyNavbar = (props) => {
   const navigate = useNavigate();
 
   return (
@@ -85,10 +85,18 @@ const MyNavbar = () => {
       </Navbar.Toggle>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto" style={{ fontSize: '1rem',marginLeft:"50px" }}>
+          {props.is_page!=="home"?(
           <Nav.Link style={{ fontSize: '1rem'}} onClick={()=>{navigate("/home")}}>Home</Nav.Link>
+          ):null}
+          {props.is_page!=="about"?(
           <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/about-us/")}}>About</Nav.Link>
+          ):null}
+          {props.is_page!=="about"?(
           <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/about-us/")}}>Contact</Nav.Link>
+          ):null}
+          {props.is_page!=="cart"?(
           <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Cart</Nav.Link>
+          ):null}
           {/* <Nav.Link style={{ fontSize: '1rem' }} onClick={()=>{navigate("/cart/")}}>Orders</Nav.Link> */}
         </Nav>
       </Navbar.Collapse>

@@ -28,6 +28,7 @@ import ShoppingCart from './Pages/ShoppingCart/ShoppingCart';
 import SingleProduct from './Pages/SingleProduct/SingleProduct';
 import AboutUs from './Pages/About/AboutUs';
 import Orders from './Pages/Orders/Orders';
+import PrivacyPolicy from './Pages/PrivacyPolicy/privacyPolicy';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/cart/" element={<ShoppingCart />} />
         <Route path="/about-us/" element={<AboutUs />} />
         <Route path="/order/" element={<Orders />} />
+        <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
       </Routes>
     </BrowserRouter>  
   );

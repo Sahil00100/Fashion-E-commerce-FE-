@@ -9,7 +9,7 @@ const AboutUs = (props) => {
 
   return (
     <>
-      <Navbar />
+      <Navbar is_page={"about"} />
 
       <div className="container mt-5">
         <div className="text-center">
@@ -56,6 +56,7 @@ const AboutUs = (props) => {
             </ul>
           </div>
 
+        
           {/* <div
             className="desktop-view"
             style={{

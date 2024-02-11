@@ -1,7 +1,7 @@
 import ProductCard from "./ProductCard";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Pic4 from "../../Images/Pic4.jpg";
@@ -10,7 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useLocation } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ProductsListApi, fetchCategories } from "./ProductListApis";
-
+import _ from 'lodash';
 const ProductList = (props) => {
   let location = useLocation();
   const CategoryID = location.state?.CategoryID;
@@ -36,7 +36,7 @@ const ProductList = (props) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  const PER_PAGE = 6;
+  const PER_PAGE = 12;
   const count = Math.ceil(state.count / PER_PAGE);
 
   const changeCategoryFilter = (i, index) => {
@@ -131,6 +131,7 @@ const ProductList = (props) => {
   };
 
   const FetchData2 = async () => {
+    // setPage(1)
     //api calling here
     let search = state.search;
     let SelectedCategories = state.SelectedCategories;
@@ -144,12 +145,12 @@ const ProductList = (props) => {
           search: search,
           categories: SelectedCategories.join(","),
           sub_variants: SelectedSizes.join(","),
-          page_no,
+          page_no:1,
           items_per_page,
         },
       });
       //response
-
+      
       let data = productsResponse.data.data;
       let count = productsResponse.data.count;
       setState((prev) => {
@@ -176,31 +177,81 @@ const ProductList = (props) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [state.search, state.is_category == true, state.is_size == true, page]);
+  }, [state.search, state.is_category == true, state.is_size == true]);
+
+
+
+
+useEffect(()=>{
+  const FetchData2 = async () => {
+    //api calling here
+    let search = state.search;
+    let SelectedCategories = state.SelectedCategories;
+    let SelectedSizes = state.SelectedSizes;
+    let page_no = page;
+    let items_per_page = PER_PAGE;
+    try {
+      const productsResponse = await ProductsListApi.get("", {
+        //url params
+        params: {
+          search: search,
+          categories: SelectedCategories.join(","),
+          sub_variants: SelectedSizes.join(","),
+          page_no,
+          items_per_page,
+        },
+      });
+      //response
+      let data = [...state.ProductList, ...productsResponse.data.data];
+      // let data = productsResponse.data.data;
+      let count = productsResponse.data.count;
+      setState((prev) => {
+        return {
+          ...prev,
+          ProductList: data,
+          count,
+          is_category: false,
+          is_size: false,
+        };
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  FetchData2()
+},[page])
+
 
   const [showPagination, setShowPagination] = useState(false);
-  const containerRef = useRef(null);
 
-  const handleScroll = () => {
-    const container = containerRef.current;
 
-    // Calculate the scroll position and max scroll
-    const scrollPosition = container.scrollTop + container.clientHeight;
-    const scrollMax = container.scrollHeight;
+  const containerRef = useRef();
 
-    // Set showPagination based on scroll position
-    setShowPagination(scrollPosition >= scrollMax);
-  };
+  const throttledHandleScroll = useRef(
+    _.throttle(() => {
+      const container = containerRef.current;
+      if (
+        container.scrollHeight - container.scrollTop <= container.clientHeight + 0.5 ||
+        container.scrollHeight - container.scrollTop === container.clientHeight
+      ) {
+        // Load more data when the user is near the bottom
+        setPage((prevPage) => prevPage + 1);
+      }
+    }, 500) // Adjust the throttle duration as needed
+  ).current;
 
   useEffect(() => {
     const container = containerRef.current;
-    container.addEventListener("scroll", handleScroll);
-
-    // Clean up the event listener when the component unmounts
+    container.addEventListener('scroll', throttledHandleScroll);
+    container.addEventListener('touchmove', throttledHandleScroll);
     return () => {
-      container.removeEventListener("scroll", handleScroll);
+      container.removeEventListener('scroll', throttledHandleScroll);
+      container.removeEventListener('touchmove', throttledHandleScroll);
     };
-  }, []); // Only run the effect on mount and unmount
+  }, [throttledHandleScroll]);
+  
+
+
   console.log(state, "stt");
   return (
     <div style={{ height: "calc(100vh - 150x)" }}>
@@ -283,7 +334,6 @@ const ProductList = (props) => {
                         <label htmlFor="customCheck1">{i.name}</label>
                       </div>
                     ))}
-                    
                   </div>
                 </div>
               </div>
@@ -322,14 +372,11 @@ const ProductList = (props) => {
                         </label>
                       </div>
                     ))}
-                   
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-
 
           {/* <div className="col-12 col-md-8">
             <div
@@ -354,41 +401,34 @@ const ProductList = (props) => {
               />
             </div>
           </div> */}
-<div className="col-12 col-md-8">
-      <div
-        ref={containerRef}
-        className="row"
-        style={{ height: "60vh", overflowY: "scroll" }}
-      >
-        {state.ProductList.map((product) => (
-          <div
-            className="col-6 col-md-6 col-lg-4 px-1 px-sm-2"
-            key={product.id}
-          >
-            <ProductCard product={product} />
+          <div className="col-12 col-md-8">
+            <div
+              ref={containerRef}
+              className="row"
+              style={{ height: "60vh", overflowY: "scroll" }}
+            >
+              {state.ProductList.map((product) => (
+                <div
+                  className="col-6 col-md-6 col-lg-4 px-1 px-sm-2"
+                  key={product.id}
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+            {/* {showPagination && (
+              <div className="col-sm-12 mt-4 mb-2 ">
+                <Pagination
+                  style={{ display: "flex", justifyContent: "center" }}
+                  count={count}
+                  page={page}
+                  onChange={handleChangePage}
+                />
+              </div>
+            )} */}
           </div>
-        ))}
-      </div>
-      {showPagination && (
-        <div className="col-sm-12 mt-4 mb-2 ">
-          <Pagination
-            style={{ display: "flex", justifyContent: "center" }}
-            count={count}
-            page={page}
-            onChange={handleChangePage}
-          />
-        </div>
-      )}
-    </div>
-
-          
         </div>
       </div>
-
-
-
-
-      
 
       {/* <Footer /> */}
     </div>

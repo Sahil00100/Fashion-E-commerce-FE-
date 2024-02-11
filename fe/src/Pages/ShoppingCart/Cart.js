@@ -181,6 +181,9 @@ const Cart = (props) => {
                 <p className="text-center">
                  Shipping calculated at checkout.
                 </p>
+                <p className="text-center">
+                Refund not available,you can exchange products
+                </p>
               </div>
             </div>
           </div>
